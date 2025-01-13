@@ -1,7 +1,12 @@
 from django.db import models
 
 # Create your models here.
-class Polls(models.Model):
-    name = models.CharField(max_length=30,null=False)
-    email = models.EmailField(unique=True,null=False)
-    message = models.TextField(max_length=250)
+class Poll(models.Model):
+    name = models.CharField(max_length=30)
+    email = models.EmailField(unique=True)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f"name:{self.name},email:{self.email}"
