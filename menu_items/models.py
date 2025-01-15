@@ -11,12 +11,28 @@ class MenuItem(models.Model):
     discount = models.DecimalField(max_digits=2, decimal_places=2)
     description = models.TextField()
     serving_time_period = models.TimeField()
-    estimated_cooking_time = models.CharField()
+    estimated_cooking_time_choices = [
+        ('10 min','10 min'),
+        ('20 min','20 min'),
+        ('30 min','30 min'),
+        ]
+    estimated_cooking_time = models.CharField(max_length=50, choices=estimated_cooking_time_choices, default='null')
     entity = models.SmallIntegerField()
     category = models.ForeignKey("Category", on_delete= CASCADE)
     # order = models.ManyToManyField(Order)
     
     
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name_choices = [('Pastries','Pastries'),
+                    ('Brunch','Brunch'),
+                    ('Desserts','Desserts'),
+                    ('Soups','Soups'),
+                    ('Salads','Salads'),
+                    ('Appetizers','Appetizers'),
+                    ('Specialty Cocktails','Specialty Cocktails'),
+                    ('Coffees','Coffees'),
+                    ('Teas','Teas')
+                    ('Entrees','Entrees'),
+                    ('Signature Dishes','Signature Dishes'),
+                    ]
     
