@@ -1,0 +1,131 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Cafe</title>
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'src/output.css' %}">
+  {% endcompress %}
+</head>
+
+<body class="bg-[#f9f9f9]">
+  <header class="bg-[#7e5e3d] p-8 shadow-lg bg-cover bg-center bg-[url('static/img/download.jpeg')]">
+    <div class="text-center text-white">
+      <h1 class="text-5xl font-bold mb-2"> Cafe </h1>
+      <h2 class="text-2xl mb-4">A Place for Relaxation and Enjoyment</h2>
+      <p class="text-lg mb-4">Join us for delicious menus, fresh coffees, and special events!</p>
+    </div>
+
+    <nav class="flex justify-center space-x-6 mt-6 text-white">
+      <a href="#home" class="hover:text-[#b59472] font-semibold">Home</a>
+      <a href="#about" class="hover:text-[#b59472] font-semibold">About Us</a>
+      <a href="#contact" class="hover:text-[#b59472] font-semibold">Contact</a>
+    </nav>
+  </header>
+
+  <main class="flex flex-col items-center h-auto mt-10">
+    <p class="text-lg text-[#6c4a2f] mb-6">Welcome to Tawind Café! Enjoy our specialty coffee and pastries.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+      <!-- Card 1 -->
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+        <img src="../static/img/crd1.jpeg" alt="Coffee" class="w-full h-40 object-cover rounded-lg mb-4">
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Fresh Coffee</h3>
+        <p class="text-sm text-[#6c4a2f] mb-4">Taste our freshly brewed coffee made from the best beans, carefully
+          selected for you.</p>
+        <button
+          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+        <img src="../static/img/crd2.jpeg" alt="Pastry" class="w-full h-40 object-cover rounded-lg mb-4">
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Delicious Pastries</h3>
+        <p class="text-sm text-[#6c4a2f] mb-4">Our pastries are baked daily, using fresh ingredients that you’ll love to
+          indulge in.</p>
+        <button
+          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+        <img src="../static/img/crd3.jpeg" alt="Event" class="w-full h-40 object-cover rounded-lg mb-4">
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Special Events</h3>
+        <p class="text-sm text-[#6c4a2f] mb-4">Join us for our exciting events, from live music to themed nights. Fun
+          guaranteed!</p>
+        <button
+          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+        <img src="../static/img/crd4.jpeg" alt="Smoothie" class="w-full h-40 object-cover rounded-lg mb-4">
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Healthy Smoothies</h3>
+        <p class="text-sm text-[#6c4a2f] mb-4">Refresh yourself with our freshly made smoothies, packed with vitamins
+          and flavor.</p>
+        <button
+          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+        <img src="../static/img/crd5.jpeg" alt="Sandwich" class="w-full h-40 object-cover rounded-lg mb-4">
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Gourmet Sandwiches</h3>
+        <p class="text-sm text-[#6c4a2f] mb-4">Our gourmet sandwiches are made with the finest ingredients and served
+          fresh.</p>
+        <button
+          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+        <img src="../static/img/crd6.jpeg" alt="Tea" class="w-full h-40 object-cover rounded-lg mb-4">
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Premium Teas</h3>
+        <p class="text-sm text-[#6c4a2f] mb-4">Indulge in our selection of premium teas, carefully sourced and brewed
+          for your enjoyment.</p>
+        <button
+          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+      </div>
+    </div>
+  </main>
+  <footer class="bg-[#5e3b28] p-4">
+    <div class="flex justify-between items-start">
+      <!-- map-->
+      <div class="w-2/3 mr-6">
+        <h3 class="text-lg font-bold text-[#d7b79a] mb-3">Find Us Here (Iran)</h3>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d326344.6593714253!2d51.38897481638812!3d35.68919746714827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e01c16a792e71%3A0xd9d2e489df48e6d0!2z2KfYs9mE2Y7YtdmK2KfYp9io2KfYp9mI2YLYqyDZn9mH2YjYt9mG2LzYp9mE2YjYqtmI2YXYqQ!5e0!3m2!1sen!2s!4v1673250746663!5m2!1sen!2s"
+          width="100%" height="250" style="border: 2px solid #3c2f27; border-radius: 8px;" allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+
+      <!--cmment-->
+      <div class="w-1/3 bg-[#6a4e36] p-4 rounded-lg shadow-lg">
+        <h3 class="text-lg font-semibold text-[#f1e0b8] mb-3">We Value Your Feedback</h3>
+        <form action="#" method="POST">
+          <div class="flex flex-col mb-3">
+            <input type="text" name="name" placeholder="Your Name" class="p-2 border border-[#6c4a2f] rounded-lg mb-3"
+              required>
+            <input type="email" name="email" placeholder="Your Email"
+              class="p-2 border border-[#6c4a2f] rounded-lg mb-3" required>
+            <textarea name="message" placeholder="Your Message" rows="3"
+              class="p-2 border border-[#6c4a2f] rounded-lg mb-3" required></textarea>
+          </div>
+          <button type="submit"
+            class="bg-[#7e5e3d] text-white py-1 px-3 rounded-full hover:bg-[#5c3e2e] transition-colors">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <p class="text-xs text-[#d7b79a] mt-3">123 Coffee Street, Tehran, Iran</p>
+    <p class="text-xs text-[#d7b79a]">© 2025 Tawind Café. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
