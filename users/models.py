@@ -1,12 +1,12 @@
 from django.core.validators import RegexValidator
 from django.contrib.auth.hashers import make_password
-#from menuitems.models import MenuItem
+from menuitems.models import MenuItem
 from django.db import models
 # Create your models here
 
 phone_number_validator = RegexValidator(
-    regex=r'^(\+98|0)?9\d{9}$',
-    message="Phone number must be a valid Iranian phone number.",
+    regex=r'^(\+98|0)?9\d{10}$',
+    message="Phone number must be a valid Iranian phone number. like 0912******* or +98 912*******",
 )
 
 birth_date_validator = RegexValidator(
@@ -38,11 +38,11 @@ class User(models.Model):
         return f'{self.first_name}  {self.last_name} with subscription number {self.subscription_number}'
 
 
-class Comment(models.Model,User):
+class Comment(models.Model):
     text = models.TextField(max_length=2000 )
     date_comment = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE , name="user")
-    #menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE , name="menu_item")
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE , name="menu_item")
 
     def __str__(self):
-        return f'Comment from {self.first_name}  {self.last_name}: {self.text}'
+        return f'Comment from {self.user.last_name}: for {self.menu_item.name} {self.text}'
