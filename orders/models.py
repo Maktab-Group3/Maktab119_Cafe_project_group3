@@ -1,6 +1,9 @@
 from django.db import models
 from tkinter import CASCADE
-
+from menu_items.models import menu_item
+from table.models import table
+from user.models import user 
+from receipts.models import receipt
 
 
 class TimeStampedModel(models.Model):
