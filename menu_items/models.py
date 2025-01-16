@@ -74,15 +74,8 @@ class MenuItem(models.Model):
     def get_duration(self):
         start_delta = timedelta(hours=self.start_time.hour, minutes=self.start_time.minute, seconds=self.start_time.second)
         end_delta = timedelta(hours=self.end_time.hour, minutes=self.end_time.minute, seconds=self.end_time.second)
-        return end_delta - start_delta
-
-    def is_duration_exceeding(self, hours):
-        """
-        بررسی می‌کند که آیا بازه زمانی از مقدار مشخص (به ساعت) بیشتر است یا نه
-        """
-        duration = self.get_duration()
-        return duration > timedelta(hours=hours)
-        
+        duration = (end_delta - start_delta)
+        return duration
     
     def __str__(self):
         return f'{self.name, self.price, self.description}'
