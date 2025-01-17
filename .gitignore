@@ -135,7 +135,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+npm/
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -170,3 +170,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 newenv/
+node_modules/
