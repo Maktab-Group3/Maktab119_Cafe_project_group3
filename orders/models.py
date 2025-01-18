@@ -47,3 +47,12 @@ class Order(models.Model,TimeStampedModel):
     
     def __str__(self):
         return f"{self.created_at},{self.updated_at}"
+
+#parsa
+class Receipt(TimeStampedModel):
+    total_price = models.DecimalField(max_digits=10, decimal_places=5)
+    is_refunded = models.BooleanField(default=False)
+    order = models.models.OneToOneField(Order, on_delete=models.CASCADE)()
+    
+    def __str__(self):
+        return f'{self.total_price}'
