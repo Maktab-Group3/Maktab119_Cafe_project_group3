@@ -52,7 +52,10 @@ class Order(models.Model,TimeStampedModel):
 class Receipt(TimeStampedModel):
     total_price = models.DecimalField(max_digits=10, decimal_places=5)
     is_refunded = models.BooleanField(default=False)
-    order = models.models.OneToOneField(Order, on_delete=models.CASCADE)()
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
     
     def __str__(self):
         return f'{self.total_price}'
+   
+  
+       
