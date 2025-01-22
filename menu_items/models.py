@@ -1,24 +1,17 @@
-from tkinter import CASCADE
 from django.db import models
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
 from datetime import timedelta
 # from ordrs.models import Order
-
 # Create your models here.
 
 class Category(models.Model):
     name_choices = [('Pastries','Pastries'),
-                    ('Brunch','Brunch'),
-                    ('Desserts','Desserts'),
+                    ('icecream','Ice cream'),
                     ('Soups','Soups'),
                     ('Salads','Salads'),
-                    ('Appetizers','Appetizers'),
-                    ('Specialty Cocktails','Specialty Cocktails'),
-                    ('Coffees','Coffees'),
-                    ('Teas','Teas')
-                    ('Entrees','Entrees'),
-                    ('Signature Dishes','Signature Dishes'),
+                    ('hotdrinks','Hot drinks'),
+                    ('colddrinks','cold drinks')
                     ]
     name = models.CharField(max_length=50,choices=name_choices, default='null' )
     
@@ -31,9 +24,7 @@ class MenuItem(models.Model):
         validators=[MinLengthValidator(2)],
         help_text="Name of the menu item (minimum 2 characters).")
     
-    price = models.DecimalField(
-        max_digits=8,
-        decimal_places=2,
+    price = models.BigIntegerField(
         help_text="Price of the item in decimal format.")
     
     discount = models.DecimalField(
@@ -80,3 +71,13 @@ class MenuItem(models.Model):
     def __str__(self):
         return f'{self.name, self.price, self.description}'
     
+#this codes blonges to reza, there are for shopping cart 
+
+class CartItem(models.Model):
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.menu_item.name} X {self.quantity}" 
