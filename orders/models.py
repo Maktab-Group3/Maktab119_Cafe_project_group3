@@ -1,6 +1,9 @@
 from django.db import models
 from tkinter import CASCADE
-
+from menu_items.models import menu_item
+from table.models import table
+from user.models import user 
+from receipts.models import receipt
 
 
 class TimeStampedModel(models.Model):
@@ -44,3 +47,15 @@ class Order(TimeStampedModel):
     
     def __str__(self):
         return f"{self.created_at},{self.updated_at}"
+
+#parsa
+class Receipt(TimeStampedModel):
+    total_price = models.DecimalField(max_digits=10, decimal_places=5)
+    is_refunded = models.BooleanField(default=False)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f'{self.total_price}'
+   
+  
+       
