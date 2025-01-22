@@ -1,13 +1,13 @@
-from tkinter import CASCADE
 from django.db import models
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
 from datetime import timedelta
+from src.db_utis import TimeStampedMixin
 # from ordrs.models import Order
 
 # Create your models here.
 
-class Category(models.Model):
+class Category(TimeStampedMixin):
     name_choices = [('Pastries','Pastries'),
                     ('Brunch','Brunch'),
                     ('Desserts','Desserts'),
@@ -16,7 +16,7 @@ class Category(models.Model):
                     ('Appetizers','Appetizers'),
                     ('Specialty Cocktails','Specialty Cocktails'),
                     ('Coffees','Coffees'),
-                    ('Teas','Teas')
+                    ('Teas','Teas'),
                     ('Entrees','Entrees'),
                     ('Signature Dishes','Signature Dishes'),
                     ]
