@@ -5,13 +5,13 @@ from .models import MenuItem, Category , CartItem
 
 def show_all_menu(request):
     menu_items = MenuItem.objects.all()
-    return render(request, 'myapp/index.html', {'menu_items': menu_items})
+    return render(request, 'menu.html', {'menu_items': menu_items})
 
 
 
 def category(request):
-    category = MenuItem.objects.filter('category' = category)
-    return render(request, 'category.html', {'category':category})
+    category = Category.objects.all()
+    return render(request, 'menu.html', {'category':category})
 
 
 
@@ -24,7 +24,7 @@ def view_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
     cart_info = {'cart_items': cart_items, 'total_price': total_price}
-    return render(request, 'myapp/cart.html', cart_info )
+    return render(request, 'menu.html', cart_info )
 
 
 
