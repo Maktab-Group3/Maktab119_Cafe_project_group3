@@ -2,9 +2,19 @@ from django.shortcuts import render , redirect
 from .models import MenuItem, Category , CartItem
 
 # Create your views here.
+
+def show_all_menu(request):
+    menu_items = MenuItem.objects.all()
+    return render(request, 'myapp/index.html', {'menu_items': menu_items})
+
+
+
 def category(request):
     category = MenuItem.objects.filter('category' = category)
     return render(request, 'category.html', {'category':category})
+
+
+
 def menuitem(request,pk):
     menuitem = MenuItem.objects.get(id=pk)
     return render(request, 'menuitem.html', {'menuitem':menuitem})
@@ -16,6 +26,8 @@ def view_cart(request):
     cart_info = {'cart_items': cart_items, 'total_price': total_price}
     return render(request, 'myapp/cart.html', cart_info )
 
+
+
 def add_to_cart(request, product_id):
     product = MenuItem.objects.get(id=product_id)
     cart_item, created = CartItem.objects.get_or_create(product=product, 
@@ -23,6 +35,7 @@ def add_to_cart(request, product_id):
     cart_item.quantity += 1
     cart_item.save()
     return redirect('cart:view_cart')
+
 
 def remove_from_cart(request, item_id):
     cart_item = CartItem.objects.get(id=item_id)
