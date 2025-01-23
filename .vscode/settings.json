@@ -1,0 +1,18 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#00b300",
+        "activityBar.background": "#00b300",
+        "sash.hoverBorder": "#00b300",
+        "statusBar.background": "#008000",
+        "statusBarItem.hoverBackground": "#00b300",
+        "statusBarItem.remoteBackground": "#008000",
+        "titleBar.activeBackground": "#008000",
+        "titleBar.inactiveBackground": "#00800099",
+        "statusBar.border": "#008000",
+        "titleBar.border": "#008000",
+        "sideBar.border": "#00b300",
+        "editorError.foreground": "#000000ff",
+        "editorInfo.foreground": "#000000ff",
+        "editorWarning.foreground": "#000000ff"
+    }
+}
