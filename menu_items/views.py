@@ -1,11 +1,15 @@
-from django.shortcuts import render , redirect
-from .models import MenuItem, Category , CartItem
+from django.shortcuts import render , get_object_or_404, HttpResponse
+from .models import MenuItem, Category
+import json
+from django.http import JsonResponse
+
+
 
 # Create your views here.
 
 def show_all_menu(request):
     menu_items = MenuItem.objects.all()
-    return render(request, 'menu.html', {'menu_items': menu_items})
+    return render(request, 'menu_list.html', {'menu_items': menu_items})
 
 
 
@@ -21,24 +25,65 @@ def menuitem(request,pk):
 
 #these functions are for  shopping cart
 def view_cart(request):
-    cart_items = CartItem.objects.filter(user=request.user)
-    total_price = sum(item.product.price * item.quantity for item in cart_items)
-    cart_info = {'cart_items': cart_items, 'total_price': total_price}
-    return render(request, 'menu.html', cart_info )
+    cart = request.COOKIES.get('cart')
+    print(cart)
+    items = []
+    total_price = 0
+    for menu_item_id, quantity in cart.items():
+
+        menu_item = get_object_or_404(MenuItem, id=menu_item_id)
+
+        total_price += menu_item.price * quantity
+
+        items.append({
+
+            'menu_item': menu_item,
+
+            'quantity': quantity,
+
+            'subtotal': menu_item.price * quantity,
+
+        })
 
 
 
-def add_to_cart(request, product_id):
-    product = MenuItem.objects.get(id=product_id)
-    cart_item, created = CartItem.objects.get_or_create(product=product, 
-                                                       user=request.user)
-    cart_item.quantity += 1
-    cart_item.save()
-    return redirect('cart:view_cart')
+    return render(request, 'view_cart.html', {'items': items, 'total_price': total_price})
+
+def menu_item_api(request, menu_item_id):
+
+    menu_item = get_object_or_404(MenuItem, id=menu_item_id)
+
+    return JsonResponse({
+
+        'id': menu_item.id,
+
+        'name': menu_item.name,
+
+        'price': float(menu_item.price),
+
+        'description': menu_item.description,
+
+        'image': menu_item.image.url if menu_item.image else None,
+
+    })
+
+def add_to_cart(request):
+    cart = request.se
 
 
-def remove_from_cart(request, item_id):
-    cart_item = CartItem.objects.get(id=item_id)
-    cart_item.delete()
-    return redirect('cart:view_cart')
-        
+def review_cookie(request):
+    name = request.COOKIES.get('icelate') 
+    print("*"*10)   
+    print(name)
+    return HttpResponse("hi")
+
+def cookie_back(request):
+    response = HttpResponse("کوکی تنظیم شد!")
+    response.set_cookie('username', 'Ali', max_age=3600) # ذخیره برای 1 ساعت
+    return response
+
+def get_cookie(request):
+    username = request.COOKIES.get('username', 'کاربر ناشناس')
+    return HttpResponse(f'نام کاربر: {username}')
+
+
