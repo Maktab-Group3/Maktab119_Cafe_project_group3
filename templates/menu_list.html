@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Catalog</title>
+    <style>
+        /* Add CSS styles for flex container and items */
+        .menu-list {
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap to the next row if necessary */
+            justify-content: space-between; /* Space items evenly along the main axis */
+            list-style: none; /* Remove list styles */
+            padding: 0;
+        }
+
+        .menu-item {
+            flex: 1; /* Grow to fill available space evenly */
+            max-width: 30%; /* Limit item width to avoid overcrowding */
+            margin: 10px; /* Add spacing between items */
+            border: 1px solid #ccc; /* Add a border for visual separation */
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Style the "Buy Now" button */
+        .buy-now-button {
+            display: block;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Menu Catalog</h1>
+    
+    <ul class="menu-list">
+        {% comment %} {% for item in menu_items %}
+            <li class="product-item">
+                <h2>{{ item.name }}</h2>
+                <p>{{ item.description }}</p>
+                <p>Price: ${{ item.price }}</p>
+                <label for="quantity">Quantity:</label>  
+                <input type="number" id="quantity_{{ item.name }}" name="quantity" value="1" min="1" max="100" onchange="updateTotal()"> 
+                <button onclick="setItemInCart('{{ item.name }}', value)">Add to Cart</button>
+                <button onclick="test()">test</button>
+            </li>
+        {% endfor %} {% endcomment %}
+        {% for item in menu_items %}
+    <li class="product-item">
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+        <p>Price: ${{ item.price }}</p>
+        <label for="quantity_{{ item.name }}">Quantity:</label>  
+        <input type="number" id="quantity_{{ item.name }}" name="quantity" value="1" min="1" max="100"> 
+        <button onclick="setItemInCart('{{ item.name }}', document.getElementById('quantity_{{ item.name }}').value)">Add to Cart</button>
+    </li>
+{% endfor %}
+
+    </ul>
+    <script>
+
+    // Get cart from cookies
+    function test(){
+        console.log("salam")
+    }
+
+    function getCookienn() {
+        const cookies = document.cookie.split('; '); // Split cookies into key-value pairs
+        const cookieDict = {};
+        for (let cookie of cookies) {
+            const [key, value] = cookie.split('=')
+            cookieDict[key] = decodeURIComponent(value);
+        }
+        return cookieDict; 
+}
+
+    function setItemInCartnn(item_name, quantity) {
+    // Get the existing cart from cookies (if any)
+    console.log(item_name)
+    const cartCookie = getCookie();
+    // Parse the cart or initialize as an empty object
+    
+    // Update or add the item in the cart
+    cartCookie[item_name] = quantity;
+    //deletecartCookie('cart');
+    console.log(cartCookie)
+    
+    // Save the updated cart back to the cookie
+    //const expiration = new Date();
+    //expiration.setTime(expiration.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days in milliseconds
+    //document.cookie = `cart=${encodeURIComponent(JSON.stringify(cart))}; path=/; expires=${expiration.toUTCString()}`;
+}
+    // Save cart to cookies
+    function deletecartCookie(name) {
+    document.cookie= name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+}
+
+    function setItemInCart(item_name, quantity) {
+    console.log(`Adding to cart: ${item_name} (Quantity: ${quantity})`);
+
+    // دریافت کوکی فعلی و تبدیل آن به آبجکت
+    let cartCookie = getCookie()['cart'];  
+    cartCookie = cartCookie ? JSON.parse(cartCookie) : {};  
+
+    // بروزرسانی مقدار کوکی
+    cartCookie[item_name] = quantity;
+
+    // تبدیل آبجکت به رشته JSON و ذخیره در کوکی
+    document.cookie = `cart=${encodeURIComponent(JSON.stringify(cartCookie))}; path=/; max-age=604800`; // 7 روز اعتبار
+
+    console.log("Updated Cart:", cartCookie);
+}
+----------------------------------------------------------
+function getCookie() {
+    const cookies = document.cookie.split('; ');
+    const cookieDict = {};
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        cookieDict[key] = decodeURIComponent(value);
+    }
+    return cookieDict;
+}
+
+    </script>
+</body>
+</html>
