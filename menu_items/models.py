@@ -73,11 +73,11 @@ class MenuItem(models.Model):
     
 #this codes blonges to reza, there are for shopping cart 
 
-class CartItem(models.Model):
-    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_added = models.DateTimeField(auto_now_add=True)
+#class CartItem(models.Model):
+#    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+#    quantity = models.PositiveIntegerField(default=1)
+#    user = models.ForeignKey(User, on_delete=models.CASCADE)
+#    date_added = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.menu_item.name} X {self.quantity}" 
+#    def __str__(self):
+#        return f"{self.menu_item.name} X {self.quantity}" 
