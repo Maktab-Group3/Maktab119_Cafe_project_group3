@@ -1,0 +1,106 @@
+<h1>Your Shopping Cart</h1>
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>Item</th>
+
+            <th>Quantity</th>
+
+            <th>Price</th>
+
+            <th>Subtotal</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="cart-items">
+
+        <!-- JavaScript will populate this dynamically -->
+
+    </tbody>
+
+</table>
+
+<p id="total-price"></p>
+
+
+
+<script>
+
+    // Render the cart dynamically
+
+    function renderCart() {
+
+        const cart = getCart();
+
+        const cartItemsContainer = document.getElementById('cart-items');
+
+        const totalPriceContainer = document.getElementById('total-price');
+
+        cartItemsContainer.innerHTML = ''; // Clear existing items
+
+        let totalPrice = 0;
+
+
+
+        for (const [menuItemId, quantity] of Object.entries(cart)) {
+
+            fetch(`/api/menu_item/${menuItemId}/`) // Fetch product details
+
+                .then(response => response.json())
+
+                .then(item => {
+
+                    const subtotal = item.price * quantity;
+
+                    totalPrice += subtotal;
+
+                    cartItemsContainer.innerHTML += `
+
+                        <tr>
+
+                            <td>${item.name}</td>
+
+                            <td>
+
+                                <input type="number" value="${quantity}" min="1" onchange="updateCart('${item.id}', this.value)">
+
+                            </td>
+
+                            <td>${item.price.toFixed(2)}</td>
+
+                            <td>${subtotal.toFixed(2)}</td>
+
+                            <td>
+
+                                <button onclick="removeFromCart('${item.id}')">Remove</button>
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                    totalPriceContainer.innerText = `Total Price: $${totalPrice.toFixed(2)}`;
+
+                });
+
+        }
+
+    }
+
+
+
+    // Render the cart on page load
+
+    document.addEventListener('DOMContentLoaded', renderCart);
+
+</script>
+
