@@ -11,7 +11,18 @@ def show_all_menu(request):
     menu_items = MenuItem.objects.all()
     return render(request, 'menu_list.html', {'menu_items': menu_items})
 
+def menu(request):
+    category_id = request.GET.get('category')
+    if category_id:
+        menu_items = MenuItem.objects.filter(category_id=category_id)
+    else :
+        menu_items = MenuItem.objects.all()  
 
+    categories = Category.objects.all()
+
+    return render(request, 'menu_test.html', {'menu_items':menu_items,'categories':categories})      
+
+    
 
 def category(request):
     category = Category.objects.all()
