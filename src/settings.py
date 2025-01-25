@@ -139,4 +139,4 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',    
 ]
 
-#SESSION_ENGINE = 'django.contrib.sessions.backends.'
+#SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
