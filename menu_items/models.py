@@ -6,14 +6,9 @@ from datetime import timedelta
 # Create your models here.
 
 class Category(models.Model):
-    name_choices = [('Pastries','Pastries'),
-                    ('icecream','Ice cream'),
-                    ('Soups','Soups'),
-                    ('Salads','Salads'),
-                    ('hotdrinks','Hot drinks'),
-                    ('colddrinks','cold drinks')
-                    ]
-    name = models.CharField(max_length=50,choices=name_choices, default='null' )
+
+    name = models.CharField(max_length=100, default='null' )
+    image = models.ImageField(upload_to='uploads/',null=True)
     
     def __str__(self):
         return f'{self.name}'
