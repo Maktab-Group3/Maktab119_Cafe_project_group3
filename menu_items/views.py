@@ -22,6 +22,7 @@ def menu(request):
 
     return render(request, 'menu_test.html', {'menu_items':menu_items,'categories':categories})      
 
+
     
 
 def category(request):
