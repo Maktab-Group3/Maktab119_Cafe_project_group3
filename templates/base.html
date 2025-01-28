@@ -23,79 +23,99 @@
     </div>
 
     <nav class="flex justify-center space-x-6 mt-6 text-white">
-      <a href="#home" class="hover:text-[#b59472] font-semibold">Home</a>
+      <select
+        class=" bg-transparent text-white  border-white mt-1 hover:text-[#b59472] gap-60 border rounded-lg bg-[#b59472]"
+        oncanplaythrough="location=this.value;">
+        <option class="text-white" value="">catgorye</option>
+        <option class="text-white" value="tea">tea</option>
+        <option class="text-white" value="option2">cake</option>
+        <option class="text-white" value="option3">cafe</option>
+      </select>
+
+
       <a href="#about" class="hover:text-[#b59472] font-semibold">About Us</a>
       <a href="#contact" class="hover:text-[#b59472] font-semibold">Contact</a>
+      <a href="http://127.0.0.1:8000/menu/" class="hover:text-[#b59472] font-semibold">menu</a>
+
+
+
     </nav>
   </header>
-{% endblock %}
+  {% endblock %}
+  {% block main %}
+
 
   <main class="flex flex-col items-center h-auto mt-10 pt-12 pb-16">
     <p class="text-lg text-[#6c4a2f] mb-6">Welcome to Café! Enjoy our specialty coffee and pastries.</p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
       <!-- Card 1 -->
+
       <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
         <img src="../static/img/crd1.jpeg" alt="Coffee" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Fresh Coffee</h3>
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2"> Cafe</h3>
         <p class="text-sm text-[#6c4a2f] mb-4">Taste our freshly brewed coffee made from the best beans, carefully
           selected for you.</p>
-        <button
-          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
+          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
       </div>
 
       <!-- Card 2 -->
       <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
         <img src="../static/img/crd2.jpeg" alt="Pastry" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Delicious Pastries</h3>
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Cafe</h3>
         <p class="text-sm text-[#6c4a2f] mb-4">Our pastries are baked daily, using fresh ingredients that you’ll love to
           indulge in.</p>
-        <button
-          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
+          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
       </div>
 
       <!-- Card 3 -->
       <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
         <img src="../static/img/crd3.jpeg" alt="Event" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Special Events</h3>
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Cafe</h3>
         <p class="text-sm text-[#6c4a2f] mb-4">Join us for our exciting events, from live music to themed nights. Fun
           guaranteed!</p>
-        <button
-          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
+          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
+
+
       </div>
 
       <!-- Card 4 -->
       <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
         <img src="../static/img/crd4.jpeg" alt="Smoothie" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Healthy Smoothies</h3>
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">cake</h3>
         <p class="text-sm text-[#6c4a2f] mb-4">Refresh yourself with our freshly made smoothies, packed with vitamins
           and flavor.</p>
-        <button
-          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
+          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
       </div>
 
       <!-- Card 5 -->
       <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
         <img src="../static/img/crd5.jpeg" alt="Sandwich" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Gourmet Sandwiches</h3>
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">cake</h3>
         <p class="text-sm text-[#6c4a2f] mb-4">Our gourmet sandwiches are made with the finest ingredients and served
           fresh.</p>
-        <button
-          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
+          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
       </div>
 
       <!-- Card 6 -->
       <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
         <img src="../static/img/crd6.jpeg" alt="Tea" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Premium Teas</h3>
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">cake</h3>
         <p class="text-sm text-[#6c4a2f] mb-4">Indulge in our selection of premium teas, carefully sourced and brewed
           for your enjoyment.</p>
-        <button
-          class="bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">Explore</button>
+        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
+          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
       </div>
+
     </div>
   </main>
-{% block footer %}
+  {% endblock main %}
+  {% block footer %}
 
 
   <footer class="bg-[#5e3b28] p-2 ">
@@ -111,7 +131,7 @@
       </div>
 
       <!--cmment-->
-      <div class="w-1/3 bg-[#6a4e36] p-4 rounded-lg shadow-lg">
+      <div class="w-1/3 bg-[#6a4e36] p-4 rounded-lg shadow-lg" id="about">
         <h3 class="text-lg font-semibold text-[#f1e0b8] mb-3">We Value Your Feedback</h3>
         <form action="#" method="POST">
           <div class="flex flex-col mb-3">
@@ -131,7 +151,7 @@
     <p class="text-xs text-[#d7b79a] mt-3">123 Coffee Street, Tehran, Iran</p>
     <p class="text-xs text-[#d7b79a]">© 2025 Tawind Café. All rights reserved.</p>
   </footer>
-{% endblock footer %}
+  {% endblock footer %}
 </body>
 
 </html>
