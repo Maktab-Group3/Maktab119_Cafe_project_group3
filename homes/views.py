@@ -13,7 +13,7 @@ def show_order(request):
 # from django.shortcuts import render, redirect
 # from .forms import PollForm
 
-# Create your views here.
+
 # def home_poll(request):
 #     if request.method == 'POST':
 #         form = PollForm(request.POST)
