@@ -38,13 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-=======
-    # 'compressor',
-    # 'homes',
->>>>>>> 35523a58023033afc464c4cab356be9d8d11e507
+#    'compressor',
+    'homes',
     'menu_items',
     'users',
+    'orders',
+    'tables'
 ]
 
 MIDDLEWARE = [
@@ -124,7 +123,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -136,18 +135,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-COMPRESS_ROOT = BASE_DIR / 'static'
+# COMPRESS_ROOT = BASE_DIR / 'static'
 
-COMPRESS_ENABLED = True
+# COMPRESS_ENABLED = True
 
-STATICFILES_FINDERS = [  
-    'django.contrib.staticfiles.finders.FileSystemFinder',  
-<<<<<<< HEAD
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',    
-=======
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',  
-    # 'compressor.finders.CompressorFinder',  
->>>>>>> 35523a58023033afc464c4cab356be9d8d11e507
-]
+# STATICFILES_FINDERS = [  
+#     'django.contrib.staticfiles.finders.FileSystemFinder',  
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',    
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',  
+#     'compressor.finders.CompressorFinder',  
+# ]
 
-#SESSION_ENGINE = 'django.contrib.sessions.backends.cache'

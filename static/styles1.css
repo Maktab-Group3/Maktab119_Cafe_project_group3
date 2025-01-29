@@ -1,0 +1,39 @@
+/* Menu Page Styles */
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-around;
+}
+
+.menu-item {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+}
+
+.menu-item h3 {
+    margin: 0 0 0.5rem 0;
+}
+
+.menu-item p {
+    margin: 0.5rem 0;
+}
+
+.menu-item .price {
+    font-weight: bold;
+    color: #6f4e37;
+}
+
+.menu-item .btn {
+    background-color: #6f4e37;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+}

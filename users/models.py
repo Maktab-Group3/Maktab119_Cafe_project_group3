@@ -2,8 +2,11 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.hashers import make_password
 from menu_items.models import MenuItem
 from django.db import models
-from src.db_utis import TimeStampedMixin
+from orders.models import TimeStampeMixin
 # Create your models here
+
+
+
 
 phone_number_validator = RegexValidator(
     regex=r'^(\+98|0)?9\d{10}$',
@@ -20,28 +23,22 @@ alpha_validator =RegexValidator(
     message='Name must contain only English and Persian alphabets'
     )
 
-class User(TimeStampedMixin):
-    first_name = models.CharField(max_length=100, validators=[alpha_validator])
-    last_name = models.CharField(max_length=100,validators=[alpha_validator])
-    phone_number = models.CharField(max_length=11 , unique=True, validators=[phone_number_validator])
-    email = models.EmailField(unique=True)
-    password = models.TextField()
-    birthday = models.DateField(auto_now_add=True, validators=[birth_date_validator])
-
-
-    def save(self, *args, **kwargs):
-        self.password = make_password(self.password)
-        super(User, self).save(*args, **kwargs)
-
+# class User(models.Model):
+#     first_name = models.CharField(max_length=100, validators=[alpha_validator])
+#     last_name = models.CharField(max_length=100,validators=[alpha_validator])
+#     phone_number = models.CharField(max_length=11 , unique=True, validators=[phone_number_validator])
+#     email = models.EmailField(unique=True)
+#     password = models.TextField()
+#     birthday = models.DateField(auto_now_add=True, validators=[birth_date_validator])
    
-    def __str__(self):
-        return f'{self.first_name}  {self.last_name} with subscription number {self.subscription_number}'
+#     def __str__(self):
+#         return f"{self.first_name}  {self.last_name} "
 
 
-class Comment(TimeStampedMixin):
+class Comment(TimeStampeMixin):
     text = models.TextField()
     date_comment = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE , name="user")
+#    user = models.ForeignKey(User,on_delete=models.CASCADE , name="user")
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE , name="menu_item")
 
     def __str__(self):

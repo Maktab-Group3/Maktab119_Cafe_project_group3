@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop - Home</title>
+    <link rel="stylesheet" href="{% static 'styles1.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our Coffee Shop</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="http://127.0.0.1:8000/menu/">Menu</a></li> <!-- Added Menu Button -->
+                <li><a href="login.html">Login</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="receipts.html">Receipts</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Discover the Best Coffee in Town</h2>
+            <p>Enjoy our handcrafted coffee blends made with love and care.</p>
+            <a href="menu.html" class="btn">View Menu</a> <!-- Link to Menu Page -->
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <h3>Fresh Beans</h3>
+                <p>We use only the freshest coffee beans for our brews.</p>
+            </div>
+            <div class="feature">
+                <h3>Cozy Ambiance</h3>
+                <p>Relax in our cozy and welcoming environment.</p>
+            </div>
+            <div class="feature">
+                <h3>Fast Service</h3>
+                <p>Get your coffee quickly without compromising quality.</p>
+            </div>
+        </section>
+
+        <!-- Poll Section -->
+        <section class="poll">
+            <h2>Visitor Poll</h2>
+            <p>What's your favorite coffee?</p>
+            <form>
+                <label>
+                    <input type="radio" name="coffee" value="latte"> Latte
+                </label>
+                <label>
+                    <input type="radio" name="coffee" value="cappuccino"> Cappuccino
+                </label>
+                <label>
+                    <input type="radio" name="coffee" value="espresso"> Espresso
+                </label>
+                <label>
+                    <input type="radio" name="coffee" value="americano"> Americano
+                </label>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </section>
+
+        <!-- Image Placeholder -->
+        <section class="image-placeholder">
+            <h2>Our Coffee Shop</h2>
+            <p>Add an image of our shop here:</p>
+            <div class="image-container">
+                <!-- Add your image here -->
+                <img src="placeholder.jpg" alt="Coffee Shop Image" id="coffee-shop-image">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Map Section -->
+        <div class="map">
+            <h2>Find Us</h2>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509374!2d144.9537353153166!3d-37.816279742021665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d6eef5e641f0!2sCoffee%20Shop!5e0!3m2!1sen!2sus"
+                width="100%"
+                height="200"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+        </div>
+        <p>&copy; 2023 Coffee Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

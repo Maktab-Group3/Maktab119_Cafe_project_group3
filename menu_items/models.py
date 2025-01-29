@@ -51,8 +51,7 @@ class MenuItem(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
-        related_name='menu_items',
-        help_text="Category to which this item belongs.")
+        related_name='menu_items')
     
     image = models.ImageField(upload_to='uploads/',null=True)
     # order = models.ManyToManyField(Order)
