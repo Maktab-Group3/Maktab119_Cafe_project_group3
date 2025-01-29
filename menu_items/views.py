@@ -1,9 +1,14 @@
 from django.shortcuts import render , get_object_or_404, HttpResponse
 from .models import MenuItem, Category
+<<<<<<< HEAD
 import json
 from django.http import JsonResponse
 
 
+=======
+from django.http import JsonResponse, HttpResponse
+import json
+>>>>>>> 35523a58023033afc464c4cab356be9d8d11e507
 
 # Create your views here.
 
@@ -26,15 +31,21 @@ def menu(request):
     
 
 def category(request):
+<<<<<<< HEAD
     category = Category.objects.all()
     return render(request, 'menu.html', {'category':category})
 
 
 
+=======
+    category = MenuItem.objects.all()
+    return render(request, 'category.html', {'category':category})
+>>>>>>> 35523a58023033afc464c4cab356be9d8d11e507
 def menuitem(request,pk):
     menuitem = MenuItem.objects.get(id=pk)
     return render(request, 'menuitem.html', {'menuitem':menuitem})
 
+<<<<<<< HEAD
 #these functions are for  shopping cart
 def view_cart(request):
     cart = request.COOKIES.get('cart')
@@ -99,3 +110,64 @@ def get_cookie(request):
     return HttpResponse(f'نام کاربر: {username}')
 
 
+=======
+
+
+
+# 1. تنظیم کوکی
+def set_cookie_view(request):
+    response = HttpResponse("Cookie has been set!")
+    # داده‌های نمونه برای کوکی (می‌توانید از request.POST یا request.GET بگیرید)
+    data = {"Pizza": 2, "Burger": 1}
+    response.set_cookie(
+        key='menuItems',  # نام کوکی
+        value=json.dumps(data),  # مقدار کوکی (JSON)
+        max_age=7 * 24 * 60 * 60,  # زمان انقضا: 7 روز
+    )
+    return response
+
+
+# 2. دریافت کوکی
+def get_cookie_view(request):
+    menu_items = request.COOKIES.get('menuItems')  # خواندن مقدار کوکی
+    if menu_items:
+        data = json.loads(menu_items)  # تبدیل JSON به دیکشنری
+        return JsonResponse({'message': 'Cookie found!', 'data': data})
+    else:
+        return JsonResponse({'message': 'No cookie found.'})
+
+
+# 3. حذف کوکی
+def delete_cookie_view(request):
+    response = HttpResponse("Cookie has been deleted!")
+    response.delete_cookie('menuItems')  # حذف کوکی با نام menuItems
+    return response
+
+
+# 4. آپدیت کوکی
+def update_cookie_view(request):
+    menu_items = request.COOKIES.get('menuItems')  # خواندن کوکی
+    if menu_items:
+        data = json.loads(menu_items)  # تبدیل JSON به دیکشنری
+    else:
+        data = {}
+
+    # گرفتن آیتم و تعداد از درخواست (مثلاً از POST یا GET)
+    item = request.GET.get('item', None)
+    quantity = int(request.GET.get('quantity', 0))
+
+    if item:
+        if item in data:
+            data[item] += quantity  # تعداد را اضافه می‌کنیم
+        else:
+            data[item] = quantity  # آیتم جدید اضافه می‌کنیم
+
+    # ذخیره کوکی جدید
+    response = JsonResponse({'message': 'Cookie updated!', 'data': data})
+    response.set_cookie(
+        key='menuItems',
+        value=json.dumps(data),
+        max_age=7 * 24 * 60 * 60,
+    )
+    return response
+>>>>>>> 35523a58023033afc464c4cab356be9d8d11e507
