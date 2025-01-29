@@ -13,7 +13,7 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
-class Order(models.Model,TimeStampedModel):
+class Order(TimeStampedModel):
     
     menu_item = menu_item.models.ForeignKey('menu_item', on_delete=models.CASCADE, name='menu_item')
     table = table.models.ForeignKey('table', on_delete=models.CASCADE, name='table')
