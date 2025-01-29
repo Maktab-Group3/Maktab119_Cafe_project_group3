@@ -1,7 +1,8 @@
 from django.core.validators import RegexValidator
 from django.contrib.auth.hashers import make_password
-from menuitems.models import MenuItem
+from menu_items.models import MenuItem
 from django.db import models
+from src.db_utis import TimeStampedMixin
 # Create your models here
 
 phone_number_validator = RegexValidator(
@@ -19,14 +20,13 @@ alpha_validator =RegexValidator(
     message='Name must contain only English and Persian alphabets'
     )
 
-class User(models.Model):
+class User(TimeStampedMixin):
     first_name = models.CharField(max_length=100, validators=[alpha_validator])
     last_name = models.CharField(max_length=100,validators=[alpha_validator])
     phone_number = models.CharField(max_length=11 , unique=True, validators=[phone_number_validator])
     email = models.EmailField(unique=True)
     password = models.TextField()
     birthday = models.DateField(auto_now_add=True, validators=[birth_date_validator])
-    subscription_number = models.IntegerField(unique=True)
 
 
     def save(self, *args, **kwargs):
@@ -38,8 +38,8 @@ class User(models.Model):
         return f'{self.first_name}  {self.last_name} with subscription number {self.subscription_number}'
 
 
-class Comment(models.Model):
-    text = models.TextField(max_length=2000 )
+class Comment(TimeStampedMixin):
+    text = models.TextField()
     date_comment = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE , name="user")
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE , name="menu_item")
