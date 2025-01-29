@@ -6,20 +6,20 @@ import json
 
 # Create your views here.
 
-def show_all_menu(request):
-    menu_items = MenuItem.objects.all()
-    return render(request, 'menu_reza.html', {'menu_items': menu_items})
+# def show_all_menu(request):
+#     menu_items = MenuItem.objects.all()
+#     return render(request, 'menu_reza.html', {'menu_items': menu_items})
 
-def menu(request):
-    category_id = request.GET.get('category')
-    if category_id:
-        menu_items = MenuItem.objects.filter(category_id=category_id)
-    else :
-        menu_items = MenuItem.objects.all()  
+# def menu(request):
+#     category_id = request.GET.get('category')
+#     if category_id:
+#         menu_items = MenuItem.objects.filter(category_id=category_id)
+#     else :
+#         menu_items = MenuItem.objects.all()  
 
-    categories = Category.objects.all()
+#     categories = Category.objects.all()
 
-    return render(request, 'menu_reza.html', {'menu_items':menu_items,'categories':categories})      
+#     return render(request, 'menu_reza.html', {'menu_items':menu_items,'categories':categories})      
 
 # def menuitem(request,pk):
 #     menuitem = MenuItem.objects.get(id=pk)
@@ -28,24 +28,21 @@ def menu(request):
 
 
 def menu(request):
-
-    # Fetch menu items sorted by category
-
-    categories = Category.objects.prefetch_related('menuitem').all()
-    sorted_menu = {category.name: category.menuitem.all() for category in categories}
+    categories = Category.objects.prefetch_related('menu_items').all()
+    sorted_menu = {category.name: category.menu_items.all() for category in categories}
     cart = json.loads(request.COOKIES.get('cart', '{}'))
     return render(request, 'menu_reza.html', {'sorted_menu': sorted_menu, 'cart': cart})
 
-def menu_custom(request):
-    category_id = request.GET.get('category')
-    if category_id:
-        menu_items = MenuItem.objects.filter(category_id=category_id)
-    else :
-        menu_items = MenuItem.objects.all()  
+# def menu_custom(request):
+#     category_id = request.GET.get('category')
+#     if category_id:
+#         menu_items = MenuItem.objects.filter(category_id=category_id)
+#     else :
+#         menu_items = MenuItem.objects.all()  
 
-    categories = Category.objects.all()
+#     categories = Category.objects.all()
 
-    return render(request, 'menu_test.html', {'menu_items':menu_items,'categories':categories})      
+#     return render(request, 'menu_test.html', {'menu_items':menu_items,'categories':categories})      
 
 
 
@@ -77,6 +74,7 @@ def add_to_cart(request):
         if item_id in cart:
 
             cart[item_id]['quantity'] += 1
+            cart[item_id]['price'] = cart[item_id]['quantity'] * item.price
 
         else:
 
@@ -94,17 +92,17 @@ def add_to_cart(request):
 
         # Redirect back to the menu and update the cart cookie
 
-        response = redirect('menu')
+        response = redirect('/menu/')
 
-        response.set_cookie('cart', json.dumps(cart), max_age=7 * 24 * 60 * 60)  # Save for 7 days
+        response.set_cookie('cart', json.dumps(cart), max_age=5 * 60)  # Save for 7 days
 
         return response
 
-    return redirect('menu')
+    return redirect('/menu/')
 
 def reset_cart(request):
 
-    response = redirect('menu')
+    response = redirect('/menu/')
 
     response.delete_cookie('cart')
 
@@ -116,24 +114,14 @@ def delete_from_cart(request, item_id):
     if str(item_id) in cart :
         del cart[str(item_id)]
 
-    response = redirect('menu')
-    response.set_cookie('cart',json.dumps(cart), max_age=7 * 24 * 60 * 60)    
+    response = redirect('/menu/')
+    response.set_cookie('cart',json.dumps(cart), max_age=1 * 60)    
     return response
 
 def complete_order(request):
 
     cart = json.loads(request.COOKIES.get('cart', '{}'))
-
-    if not cart:
-
-        return redirect('menu')  # Redirect if the cart is empty
-
-
-
-    # Create a new CartItem instance
-
     cart_item = CartItem.objects.create(total_price=0.0)
-
     total_price = 0
 
 
@@ -158,7 +146,7 @@ def complete_order(request):
 
 
 
-    response = redirect('menu')
+    response = redirect('/menu/')
 
     response.delete_cookie('cart')  # Clear cart cookie after completing the order
 

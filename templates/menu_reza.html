@@ -5,79 +5,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Shop - Menu</title>
-    <link rel="stylesheet" href="{% static 'styles1.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #6f4e37;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+        .menu-container {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .category-section {
+            flex: 3;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .cart-summary {
+            flex: 1;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .menu-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .button {
+            background-color: #6f4e37;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #6f4e37;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
-    {% comment %} <header>
+    <header>
         <h1>Coffee Shop - Menu</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="orders.html">Orders</a></li>
-                <li><a href="receipts.html">Receipts</a></li>
-                <li><a href="cart.html">Cart</a></li>
+                <li><a href="">Home</a></li>
+                <li><a href="">Menu</a></li>
+                <li><a href="">Login</a></li>
+                <li><a href="">Orders</a></li>
+                <li><a href="">Receipts</a></li>
+                <li><a href="">Cart</a></li>
             </ul>
         </nav>
-    </header> {% endcomment %}
+    </header>
 
-    <main>
-        <section class="menu">
+    <main class="menu-container">
+        <section class="category-section">
             <h2>Our Menu</h2>
-            <div>
-            {% comment %} {% for category, items in sorted_menu.items %} {% endcomment %}
-
-            {% comment %} <h2>{{ category }}</h2> {% endcomment %}
-
-                {% for item in menu_items %}
-
-                    <div>
-
-                        <h3>{{ item.name }}</h3>
-
-                        <p>Price: ${{ item.price }}</p>
-
-                        <form method="POST" action="{% url 'add_to_cart' %}">
-
-                            {% csrf_token %}
-
-                            <input type="hidden" name="item_id" value="{{ item.id }}">
-
-                            <button type="submit">Add to Cart</button>
-
-                        </form>
-
+            {% for category, items in sorted_menu.items %}
+                <div class="category-group">
+                    <h3>{{ category }}</h3>
+                    <div class="items-list">
+                        {% for item in items %}
+                            <div class="menu-item">
+                                <h4>{{ item.name }}</h4>
+                                <p>Price: ${{ item.price }}</p>
+                                <form method="POST" action="{% url 'add_to_cart' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="item_id" value="{{ item.id }}">
+                                    <button type="submit" class="button">Add to Cart</button>
+                                </form>
+                            </div>
+                        {% endfor %}
                     </div>
-
-                {% endfor %}
-  
-            </div>
-            <div id="cart-summary" style="position: fixed; top: 100px; right: 20px; border: 1px solid #ccc; padding: 10px; background: #f9f9f9;">
-
-                <h3>Cart</h3>
-
-                <ul>
-
-                {% for item_id, item_data in cart.items %}
-
-                    <li>{{ item_data.name }} x {{ item_data.quantity }} - ${{ item_data.price }}</li>
-
-                {% endfor %}
-
-                </ul>
-
-                <a href="{% url 'reset_cart' %}">Reset Cart</a>
-
-                <a href="{% url 'complete_order' %}">Complete Order</a>
-
-            </div>
+                </div>
+            {% endfor %}
         </section>
+
+        <aside class="cart-summary">
+            <h3>Your Cart</h3>
+            {% if cart %}
+                <ul>
+                    {% for item_id, item_data in cart.items %}
+                        <li>
+                            {{ item_data.name }} 
+                            <br>
+                            Quantity: {{ item_data.quantity }}
+                            <br>
+                            Price: ${{ item_data.price }}
+                            <br>
+                            <a href="{% url 'delete_from_cart' item_id %}" class="button">Remove</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="cart-actions">
+                    <a href="{% url 'reset_cart' %}" class="button">Empty Cart</a>
+                    <a href="{% url 'complete_order' %}" class="button">Checkout</a>
+                </div>
+            {% else %}
+                <p>Your cart is empty</p>
+            {% endif %}
+        </aside>
     </main>
 
     <footer>
         <div class="map">
-            <h2>Find Us</h2>
+            <h3>Find Us</h3>
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509374!2d144.9537353153166!3d-37.816279742021665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d6eef5e641f0!2sCoffee%20Shop!5e0!3m2!1sen!2sus"
                 width="100%"

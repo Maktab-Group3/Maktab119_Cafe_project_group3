@@ -1,84 +1,90 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Shop - Home</title>
-    <link rel="stylesheet" href="{% static 'styles1.css' %}">
 </head>
-<body>
-    <header>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333;">
+    <header style="background-color: #6f4e37; color: white; padding: 1rem; text-align: center;">
         <h1>Welcome to Our Coffee Shop</h1>
         <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="http://127.0.0.1:8000/menu/">Menu</a></li> <!-- Added Menu Button -->
-                <li><a href="login.html">Login</a></li>
-                <li><a href="orders.html">Orders</a></li>
-                <li><a href="receipts.html">Receipts</a></li>
-                <li><a href="cart.html">Cart</a></li>
+            <ul style="list-style: none; padding: 0;">
+                <li style="display: inline; margin: 0 10px;">
+                    <a href="index.html" style="color: white; text-decoration: none;">Home</a>
+                </li>
+                <li style="display: inline; margin: 0 10px;">
+                    <a href="http://127.0.0.1:8000/menu/" style="color: white; text-decoration: none;">Menu</a>
+                </li>
+                <li style="display: inline; margin: 0 10px;">
+                    <a href="login.html" style="color: white; text-decoration: none;">Login</a>
+                </li>
+                <li style="display: inline; margin: 0 10px;">
+                    <a href="orders.html" style="color: white; text-decoration: none;">Orders</a>
+                </li>
+                <li style="display: inline; margin: 0 10px;">
+                    <a href="receipts.html" style="color: white; text-decoration: none;">Receipts</a>
+                </li>
+                <li style="display: inline; margin: 0 10px;">
+                    <a href="cart.html" style="color: white; text-decoration: none;">Cart</a>
+                </li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
+    <main style="padding: 2rem;">
+        <section style="text-align: center; padding: 2rem; background-color: #d4a373; color: white; border-radius: 10px;">
             <h2>Discover the Best Coffee in Town</h2>
             <p>Enjoy our handcrafted coffee blends made with love and care.</p>
-            <a href="menu.html" class="btn">View Menu</a> <!-- Link to Menu Page -->
+            <a href="menu.html" style="background-color: #6f4e37; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 5px;">View Menu</a>
         </section>
 
-        <section class="features">
-            <div class="feature">
+        <section style="display: flex; justify-content: space-around; margin-top: 2rem;">
+            <div style="text-align: center; width: 30%; padding: 1rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
                 <h3>Fresh Beans</h3>
                 <p>We use only the freshest coffee beans for our brews.</p>
             </div>
-            <div class="feature">
+            <div style="text-align: center; width: 30%; padding: 1rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
                 <h3>Cozy Ambiance</h3>
                 <p>Relax in our cozy and welcoming environment.</p>
             </div>
-            <div class="feature">
+            <div style="text-align: center; width: 30%; padding: 1rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
                 <h3>Fast Service</h3>
                 <p>Get your coffee quickly without compromising quality.</p>
             </div>
         </section>
 
-        <!-- Poll Section -->
-        <section class="poll">
+        <section style="max-width: 400px; margin: 2rem auto; padding: 2rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
             <h2>Visitor Poll</h2>
             <p>What's your favorite coffee?</p>
             <form>
-                <label>
+                <label style="display: block; margin-bottom: 0.5rem;">
                     <input type="radio" name="coffee" value="latte"> Latte
                 </label>
-                <label>
+                <label style="display: block; margin-bottom: 0.5rem;">
                     <input type="radio" name="coffee" value="cappuccino"> Cappuccino
                 </label>
-                <label>
+                <label style="display: block; margin-bottom: 0.5rem;">
                     <input type="radio" name="coffee" value="espresso"> Espresso
                 </label>
-                <label>
+                <label style="display: block; margin-bottom: 1rem;">
                     <input type="radio" name="coffee" value="americano"> Americano
                 </label>
-                <button type="submit" class="btn">Submit</button>
+                <button type="submit" style="background-color: #6f4e37; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
             </form>
         </section>
 
-        <!-- Image Placeholder -->
-        <section class="image-placeholder">
+        <section style="margin-top: 2rem; padding: 2rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
             <h2>Our Coffee Shop</h2>
             <p>Add an image of our shop here:</p>
-            <div class="image-container">
-                <!-- Add your image here -->
-                <img src="placeholder.jpg" alt="Coffee Shop Image" id="coffee-shop-image">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <img src="placeholder.jpg" alt="Coffee Shop Image" style="width: 100%; height: auto; border-radius: 5px;">
             </div>
         </section>
     </main>
 
-    <footer>
-        <!-- Map Section -->
-        <div class="map">
+    <footer style="background-color: #6f4e37; color: white; text-align: center; padding: 1rem; bottom: 0; width: 100%;">
+        <div style="width: 100%; margin-bottom: 1rem;">
             <h2>Find Us</h2>
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509374!2d144.9537353153166!3d-37.816279742021665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d6eef5e641f0!2sCoffee%20Shop!5e0!3m2!1sen!2sus"
