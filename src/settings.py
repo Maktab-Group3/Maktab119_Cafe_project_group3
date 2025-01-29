@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+###
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compressor',
-    'homes',
+<<<<<<< HEAD
+=======
+    # 'compressor',
+    # 'homes',
+>>>>>>> 35523a58023033afc464c4cab356be9d8d11e507
     'menu_items',
     'users',
 ]
@@ -52,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#    'django.middleware.session.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'src.urls'
@@ -138,6 +142,12 @@ COMPRESS_ENABLED = True
 
 STATICFILES_FINDERS = [  
     'django.contrib.staticfiles.finders.FileSystemFinder',  
+<<<<<<< HEAD
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',    
+=======
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',  
-    'compressor.finders.CompressorFinder',  
+    # 'compressor.finders.CompressorFinder',  
+>>>>>>> 35523a58023033afc464c4cab356be9d8d11e507
 ]
+
+#SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
