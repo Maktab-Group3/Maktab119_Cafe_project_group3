@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 #    path('',include('homes.urls')),
     path('', include('menu_items.urls'), name = 'menu' )
-    
-    
+
+
     
 ]
