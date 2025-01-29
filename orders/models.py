@@ -16,7 +16,7 @@ class TimeStampeMixin(models.Model):
 #     menu_item = MenuItem.models.ForeignKey('menu_item', on_delete=models.CASCADE, name='menu_item')
 #     table = Table.models.ForeignKey('table', on_delete=models.CASCADE, name='table')
 #     user = User.models.ForeignKey('user', on_delete=models.CASCADE, name='user') #
-# #    recipt= recipt.models.ForeignKey('recipt', on_delete=models.CASCADE, name='recipt')
+#     recipt= recipt.models.ForeignKey('recipt', on_delete=models.CASCADE, name='recipt')
 #     number_of_order = models.IntegerField()
     
 #     payment_status = [
@@ -53,6 +53,7 @@ class CartItem(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 #    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
