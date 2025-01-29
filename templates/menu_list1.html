@@ -61,7 +61,7 @@
             {% for item_id, item_data in cart.items %}
 
                 <li>{{ item_data.name }} x {{ item_data.quantity }} - ${{ item_data.price }}</li>
-                <a href="{% url 'delete_from_cart' item_id %}"></a>
+                <a href="{% url 'delete_from_cart' item_id %}">Remove</a>
             {% endfor %}
 
         </ul>
