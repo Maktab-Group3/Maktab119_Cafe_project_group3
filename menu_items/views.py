@@ -60,17 +60,7 @@ def add_to_cart(request):
     if request.method == 'POST':
         item_id = request.POST.get('item_id')
         item = get_object_or_404(MenuItem, id=item_id)
-
-
-
-        # Retrieve the cart from cookies or initialize it
-
         cart = json.loads(request.COOKIES.get('cart', '{}'))
-
-
-
-        # Add item to the cart (or increment quantity if it already exists)
-
         if item_id in cart:
 
             cart[item_id]['quantity'] += 1
@@ -94,7 +84,7 @@ def add_to_cart(request):
 
         response = redirect('/menu/')
 
-        response.set_cookie('cart', json.dumps(cart), max_age=5 * 60)  # Save for 7 days
+        response.set_cookie('cart', json.dumps(cart), max_age= 5 * 60)  
 
         return response
 
@@ -115,18 +105,19 @@ def delete_from_cart(request, item_id):
         del cart[str(item_id)]
 
     response = redirect('/menu/')
-    response.set_cookie('cart',json.dumps(cart), max_age=1 * 60)    
+    response.set_cookie('cart',json.dumps(cart), max_age= 5 * 60)    
     return response
 
 def complete_order(request):
 
     cart = json.loads(request.COOKIES.get('cart', '{}'))
+    #line 115 make a cart item to save the cookies data to it but it is now empty
     cart_item = CartItem.objects.create(total_price=0.0)
     total_price = 0
 
 
 
-    # Add items to the order
+    # Add items to the cart item
 
     for item_id, item_data in cart.items():
 
