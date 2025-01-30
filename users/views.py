@@ -1,62 +1,50 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import aauthenticate , login, logout
-
-# Create your views here.
-    
-################## login #####################
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('/')
 
-    form_obj = AuthenticationForm()
     if request.method == 'POST':
-        form_obj = AuthenticationForm(data=request.POST)
-        if form_obj.is_valid():
-            username = form_obj.cleaned_data['username']
-            password = form_obj.cleaned_data['password']
-            user = aauthenticate(request, username=username, password=password)
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 next_page = request.GET.get('next')
-                return redirect(next_page)
-            else:
-            
-                return HttpResponse('invalid login')
+                # Validate next_page
+                if next_page and next_page.startswith('/'):
+                    return redirect(next_page)
+                return redirect('home')
         else:
-            print(form_obj.errors)    
-    context = {
-        'form': form_obj
-    }
-    return render(request, ".......html", context)
-
-################## logout #####################
+            messages.error(request, "Invalid username or password")
+    else:
+        form = AuthenticationForm()
+    
+    return render(request, "login_reza.html", {'form': form})
 
 def logout_view(request):
-    # if request.user.is_authenticated():
     logout(request)
-    # return HttpResponse('you are logged out')
-    return redirect('/')
-
-################## signup #####################
+    return redirect('home')
 
 def signup_view(request):
-    form_obj = UserCreationForm()
-    if request.method == 'POST' :
-        form_obj = UserCreationForm(request.POST)
-        if form_obj.is_valid():
-            form_obj.save()
-            return redirect('/login')
-
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
         else:
-            pass
-    context = {
-        'form' : form_obj
-    }
-
-    return render(request, '.............html', context)
-
+            # Show form errors
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+    else:
+        form = UserCreationForm()
+    
+    return render(request, 'signup.html', {'form': form})
