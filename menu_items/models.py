@@ -64,7 +64,7 @@ class MenuItem(models.Model):
     
     def __str__(self):
         return f'{self.name, self.price, self.description}'
-    
+
 #this codes blonges to reza, there are for shopping cart 
 
 #class CartItem(models.Model):

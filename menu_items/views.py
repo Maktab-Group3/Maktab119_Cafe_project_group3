@@ -102,7 +102,10 @@ def delete_from_cart(request, item_id):
     cart = json.loads(request.COOKIES.get('cart',{}))
 
     if str(item_id) in cart :
-        del cart[str(item_id)]
+        if cart[str(item_id)]['quantity'] > 1 :
+            cart[str(item_id)]['quantity'] -= 1
+        else :
+            del  cart[str(item_id)]   
 
     response = redirect('/menu/')
     response.set_cookie('cart',json.dumps(cart), max_age= 5 * 60)    
@@ -112,35 +115,135 @@ from django.shortcuts import get_object_or_404, redirect
 import json
 from .models import MenuItem
 
-def complete_order(request):
-    cart = json.loads(request.COOKIES.get('cart', '{}'))
+# def complete_order(request):
+#     cart = json.loads(request.COOKIES.get('cart', '{}'))
 
-    # Create the order
-    order_item = Order(
-            number_of_order=1,  # Provide a default value for the required field
-            payment_status='Pending',  # Set default payment status
-            status='Pending',  # Set default order status
-            total_price=0.0  # Initialize total price
-    )
-    order_item.save()  # Save the order to the database first
+#     # Create the order
+#     order = Order.objects.create()
+
+#     total_price = 0
+
+#     # Add items to the order
+#     for item_id, item_data in cart.items():
+#         menu_item = get_object_or_404(MenuItem, id=item_id)
+#         quantity = item_data['quntity']
+
+#         total_price += menu_item.price * item_data['quantity']
+
+#     # Save the total price and update the order
+#     order_item.total_price = total_price
+#     order_item.save()  # Save the order again with the updated total price
+
+#     # Clear the cart cookie after completing the order
+#     response = redirect('order_list')
+#     response.delete_cookie('cart')
+
+#     return response 
+
+
+import json
+from django.shortcuts import render, redirect
+from .models import MenuItem
+from orders.models import Order, OrderDetail
+from tables.models import Table
+from django.urls import reverse
+def complete_order(request):
+
+    cart_data = request.COOKIES.get("cart")  # دریافت سبد خرید از کوکی‌ها
+
+
+
+    if not cart_data:
+
+        return render(request, "order.html", {"error": "Your cart is empty!"})
+
+
+
+    try:
+
+        cart_items = json.loads(cart_data)  # تبدیل JSON به دیکشنری پایتون
+
+    except json.JSONDecodeError:
+
+        return render(request, "order.html", {"error": "Invalid cart format!"})
+
+
+
+    if not cart_items:
+
+        return render(request, "order.html", {"error": "No items selected!"})
+
+
+
+    # مقدار پیش‌فرض برای میز
+
+    default_table = Table.objects.first()
+
+
+
+    # ایجاد سفارش جدید
+
+    order = Order.objects.create(table=default_table)
+
+
 
     total_price = 0
 
-    # Add items to the order
-    for item_id, item_data in cart.items():
-        menu_item = get_object_or_404(MenuItem, id=item_id)
-        order_item.menu_items.add(menu_item)  # Add the menu item to the order
-        total_price += menu_item.price * item_data['quantity']
+    for menu_id, item in cart_items.items():
 
-    # Save the total price and update the order
-    order_item.total_price = total_price
-    order_item.save()  # Save the order again with the updated total price
+        try:
 
-    # Clear the cart cookie after completing the order
-    response = redirect('order_list')
-    response.delete_cookie('cart')
+            menu_item = MenuItem.objects.get(id=int(menu_id))  # دریافت غذا از دیتابیس
 
-    return response 
+            quantity = int(item["quantity"])  # تعداد را دریافت کن
 
 
 
+            # ذخیره در OrderDetail
+
+            OrderDetail.objects.create(
+
+                order=order,
+
+                item_name=menu_item.name,  # ذخیره فقط نام غذا
+
+                item_price=menu_item.price,  # ذخیره قیمت غذا
+
+                quantity=quantity
+
+            )
+
+
+
+            total_price += menu_item.price * quantity  # محاسبه قیمت کل
+
+        except (MenuItem.DoesNotExist, ValueError, KeyError):
+
+            continue  # اگر آیتمی وجود نداشت، آن را نادیده بگیر
+
+
+
+    order.total_price = total_price
+
+    order.save()  # ذخیره سفارش نهایی
+
+
+
+    response = redirect(reverse("order_detail", args=[order.id]))  # هدایت به صفحه جزئیات سفارش
+
+    response.delete_cookie("cart")  # حذف کوکی سبد خرید پس از ثبت سفارش
+
+
+
+    return response
+# def order_detail(request, order_id):
+#     order_id = int(order_id)
+#     order = get_object_or_404(Order, "orders.html", id = order_id)
+#     order_items = OrderDetail.objects.filter(order=order)
+#     return render(request, "orders.html", {'order':order, 'order_item':order_items})
+
+
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    order_items = OrderDetail.objects.filter(order=order)
+    return render(request, 'order_detail.html', {'order':order,'order_items':order_items})
