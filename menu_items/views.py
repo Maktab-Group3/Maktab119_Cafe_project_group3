@@ -1,6 +1,6 @@
 from django.shortcuts import render , get_object_or_404
 from .models import MenuItem, Category 
-from orders.models import CartItem
+from orders.models import Order
 import json
 
 
@@ -108,37 +108,39 @@ def delete_from_cart(request, item_id):
     response.set_cookie('cart',json.dumps(cart), max_age= 5 * 60)    
     return response
 
-def complete_order(request):
+from django.shortcuts import get_object_or_404, redirect
+import json
+from .models import MenuItem
 
+def complete_order(request):
     cart = json.loads(request.COOKIES.get('cart', '{}'))
-    #line 115 make a cart item to save the cookies data to it but it is now empty
-    cart_item = CartItem.objects.create(total_price=0.0)
+
+    # Create the order
+    order_item = Order(
+            number_of_order=1,  # Provide a default value for the required field
+            payment_status='Pending',  # Set default payment status
+            status='Pending',  # Set default order status
+            total_price=0.0  # Initialize total price
+    )
+    order_item.save()  # Save the order to the database first
+
     total_price = 0
 
-
-
-    # Add items to the cart item
-
+    # Add items to the order
     for item_id, item_data in cart.items():
-
         menu_item = get_object_or_404(MenuItem, id=item_id)
-
-        cart_item.items.add(menu_item)
-
+        order_item.menu_items.add(menu_item)  # Add the menu item to the order
         total_price += menu_item.price * item_data['quantity']
 
+    # Save the total price and update the order
+    order_item.total_price = total_price
+    order_item.save()  # Save the order again with the updated total price
+
+    # Clear the cart cookie after completing the order
+    response = redirect('order_list')
+    response.delete_cookie('cart')
+
+    return response 
 
 
-    # Save the total price and clear the cart
 
-    cart_item.total_price = total_price
-
-    cart_item.save()
-
-
-
-    response = redirect('/menu/')
-
-    response.delete_cookie('cart')  # Clear cart cookie after completing the order
-
-    return response
