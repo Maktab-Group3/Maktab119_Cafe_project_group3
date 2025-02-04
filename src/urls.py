@@ -22,6 +22,7 @@ urlpatterns = [
     path('',include('homes.urls')),
     path('', include('menu_items.urls')),
     path('', include('users.urls')),
+    path('', include('orders.urls')),
 
 
     
