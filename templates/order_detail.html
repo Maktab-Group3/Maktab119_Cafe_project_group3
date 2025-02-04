@@ -1,46 +1,91 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Order Details</title>
+
     <style>
+
         body { font-family: Arial, sans-serif; text-align: left; direction: ltr; }
+
         .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+
         h2 { color: #333; }
+
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+
         th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+
         th { background-color: #f2f2f2; }
+
     </style>
+
 </head>
+
 <body>
+
     <div class="container">
+
         <h2>Your Order Details</h2>
+
         <p><strong>Order ID:</strong> {{ order.id }}</p>
+
         <p><strong>Payment Status:</strong> {{ order.payment_status }}</p>
+
         <p><strong>Order Status:</strong> {{ order.status }}</p>
+
         <p><strong>Takeaway:</strong> {% if order.take_a_way %} Yes {% else %} No {% endif %}</p>
+
         <p><strong>Table:</strong> {{ order.table }}</p>
+
         
+
         <h3>Order Items:</h3>
+
         <table>
+
             <tr>
+
                 <th>Item Name</th>
+
                 <th>Quantity</th>
+
                 <th>Unit Price</th>
+
                 <th>Total Price</th>
+
             </tr>
+
             {% for item in order_items %}
+
             <tr>
-                <td>{{ item.menu_item.name }}</td>
+
+                <td>{{ item.item_name }}</td>
+
                 <td>{{ item.quantity }}</td>
-                <td>{{ item.menu_item.price }} USD</td>
-                <td>{{ item.quantity|floatformat:0|add:item.menu_item.price }} USD</td>
+
+                <td>{{ item.item_price }} USD</td>
+
+                <td>{{ item.total_item_price }} USD</td>
+
             </tr>
+
             {% endfor %}
+
         </table>
 
+
+
         <h3>Total Price: {{ order.total_price }} USD</h3>
+
     </div>
+     <a href="http://127.0.0.1:8000/menu/" style="color: black; text-decoration: none;">Menu</a>
 </body>
+
 </html>
