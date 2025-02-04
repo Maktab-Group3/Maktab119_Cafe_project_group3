@@ -22,5 +22,5 @@ def get_all_receipts(request):
 #     return render(request,"orders.html",{'Order':order})
 
 def get_all_orders(request):
-    orders = Order.objects.all()
+    orders = Order.objects.prefetch_related("menu_items", "tables")
     return render(request, "all_orders.html",{'Orders':orders})
