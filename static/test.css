@@ -1,0 +1,167 @@
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container for the receipt */
+.receipt-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* Form styling */
+form {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f1f3f5;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #495057;
+    font-size: 18px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Error message styling */
+p[style="color: red;"] {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #dc3545;
+}
+
+/* Receipt styling */
+.receipt {
+    padding: 25px;
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.receipt .header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #007bff;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.receipt .header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.receipt .header .receipt-id {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.receipt .header p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.receipt hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 20px 0;
+}
+
+.receipt .content {
+    font-size: 18px;
+    line-height: 1.8;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.receipt .content p {
+    margin: 15px 0;
+}
+
+.receipt .content strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.receipt .footer {
+    text-align: center;
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #28a745;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .receipt-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .receipt .header h1 {
+        font-size: 24px;
+    }
+
+    .receipt .header .receipt-id {
+        font-size: 16px;
+    }
+
+    .receipt .content {
+        font-size: 16px;
+    }
+}
