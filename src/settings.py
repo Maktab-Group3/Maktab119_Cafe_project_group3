@@ -146,3 +146,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     'compressor.finders.CompressorFinder',  
 # ]
 
+# LOGOUT_REDIRECT_URL = '/'
+
