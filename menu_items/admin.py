@@ -23,3 +23,4 @@ class AdminCategory(admin.ModelAdmin):
     
 admin.site.register(MenuItem, AdminMenuItem)  
 admin.site.register(Category, AdminCategory)  
+

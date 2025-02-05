@@ -100,10 +100,14 @@ def reset_cart(request):
 
 def delete_from_cart(request, item_id):
     cart = json.loads(request.COOKIES.get('cart',{}))
-
+    quantity = cart[str(item_id)]['quantity']
+    total_price = cart[str(item_id)]['price']
+    price = cart[str(item_id)]['price']/cart[str(item_id)]['quantity']
     if str(item_id) in cart :
         if cart[str(item_id)]['quantity'] > 1 :
             cart[str(item_id)]['quantity'] -= 1
+            cart[str(item_id)]['price'] = price*cart[str(item_id)]['quantity']
+            
         else :
             del  cart[str(item_id)]   
 
