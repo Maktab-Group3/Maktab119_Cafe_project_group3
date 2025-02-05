@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Receipt</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'test.css' %}">
+</head>
+<body>
+    <div class="receipt-container">
+        <form action="{% url 'receipt_view' %}" method="get">
+            <label for="receipt-id">Receipt ID:</label>
+            <input type="text" id="receipt-id" name="receipt_id" required>
+            <button type="submit">Show Receipt</button>
+        </form>
+
+        {% if error_message %}
+             <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
+
+        {% if receipt %}
+        <div class="receipt">
+            <div class="header">
+                <h1>Payment Receipt</h1>
+                <p class="receipt-id">Receipt ID: {{ receipt.id }}</p>
+                <p>Date: <span id="current-date">{{ current_date }}</span></p>
+            </div>
+            <hr>
+            <div class="content">
+                <p><strong>Order:</strong> {{ order }}</p>
+                <p><strong>Total Price:</strong> {{ receipt.total_price }} Toman</p>
+
+                {% if discount_percentage > 0 %}
+                <p><strong>Applied Discount:</strong> {{ discount_percentage }}%</p>
+                <p><strong>Discounted Price:</strong> {{ discounted_price }} Toman</p>
+                {% endif %}
+            </div>
+            <hr>
+            <div class="footer">
+                <a href="{% url 'home' %}" class="home-button">Thank you for your purchase!</a>
+            </div>
+            
+        </div>
+        {% else %}
+        <p>No receipt found with this ID.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
