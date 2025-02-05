@@ -3,8 +3,6 @@ from tkinter import CASCADE
 from menu_items.models import menu_item
 from table.models import table
 from user.models import user 
-from receipts.models import receipt
-
 
 class TimeStampedModel(models.Model):
 
@@ -18,7 +16,7 @@ class Order(TimeStampedModel):
     menu_item = menu_item.models.ForeignKey('menu_item', on_delete=models.CASCADE, name='menu_item')
     table = table.models.ForeignKey('table', on_delete=models.CASCADE, name='table')
     user = user.models.ForeignKey('user', on_delete=models.CASCADE, name='user') #
-    recipt= recipt.models.ForeignKey('recipt', on_delete=models.CASCADE, name='recipt')
+    recipt= Receipt.models.ForeignKey('recipt', on_delete=models.CASCADE, name='recipt')
     number_of_order = models.IntegerField()
     
     payment_status = [
@@ -36,7 +34,7 @@ class Order(TimeStampedModel):
         ('Canceled','Canceled')
         
     ]
-    TimeStampedModel=TimeStampedModel.
+    TimeStampedModel=TimeStampedModel
    
     take_a_way =models.BooleanField(default= False)
 
@@ -52,10 +50,11 @@ class Order(TimeStampedModel):
 class Receipt(TimeStampedModel):
     total_price = models.DecimalField(max_digits=10, decimal_places=5)
     is_refunded = models.BooleanField(default=False)
-    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    order = models.CharField( max_length=50)
+    status_R = models.BooleanField( default=False)
     
     def __str__(self):
-        return f'{self.total_price}'
+        return f'{self.id}'
    
   
        
