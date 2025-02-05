@@ -14,6 +14,8 @@
 {% block header %}
 
 
+
+
 <body class="bg-[#f9f9f9]">
   <header class="bg-[#7e5e3d] p-8 shadow-lg bg-cover bg-center bg-[url('static/img/download.jpeg')]">
     <div class="text-center text-white">
@@ -45,75 +47,36 @@
   {% block main %}
 
 
+
+
+
   <main class="flex flex-col items-center h-auto mt-10 pt-12 pb-16">
     <p class="text-lg text-[#6c4a2f] mb-6">Welcome to Café! Enjoy our specialty coffee and pastries.</p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
-      <!-- Card 1 -->
 
+
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+      {% for cate in cate_show %}
+      <!-- Card -->
       <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-        <img src="../static/img/crd1.jpeg" alt="Coffee" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2"> Cafe</h3>
+        <img src="{% static 'img/crd1.jpeg' %}" alt="Coffee" class="w-full h-40 object-cover rounded-lg mb-4">
+
+        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">{{ cate.name }}</h3>
+
         <p class="text-sm text-[#6c4a2f] mb-4">Taste our freshly brewed coffee made from the best beans, carefully
           selected for you.</p>
         <button onclick="location.href='http://127.0.0.1:8000/menu/'"
-          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
+          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">show more
+        </button>
       </div>
+      {% endfor %}
+    </div>
 
-      <!-- Card 2 -->
-      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-        <img src="../static/img/crd2.jpeg" alt="Pastry" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Cafe</h3>
-        <p class="text-sm text-[#6c4a2f] mb-4">Our pastries are baked daily, using fresh ingredients that you’ll love to
-          indulge in.</p>
-        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
-          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-        <img src="../static/img/crd3.jpeg" alt="Event" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">Cafe</h3>
-        <p class="text-sm text-[#6c4a2f] mb-4">Join us for our exciting events, from live music to themed nights. Fun
-          guaranteed!</p>
-        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
-          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
-
-
-      </div>
-
-      <!-- Card 4 -->
-      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-        <img src="../static/img/crd4.jpeg" alt="Smoothie" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">cake</h3>
-        <p class="text-sm text-[#6c4a2f] mb-4">Refresh yourself with our freshly made smoothies, packed with vitamins
-          and flavor.</p>
-        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
-          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-        <img src="../static/img/crd5.jpeg" alt="Sandwich" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">cake</h3>
-        <p class="text-sm text-[#6c4a2f] mb-4">Our gourmet sandwiches are made with the finest ingredients and served
-          fresh.</p>
-        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
-          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-        <img src="../static/img/crd6.jpeg" alt="Tea" class="w-full h-40 object-cover rounded-lg mb-4">
-        <h3 class="text-2xl font-semibold text-[#6c4a2f] mb-2">cake</h3>
-        <p class="text-sm text-[#6c4a2f] mb-4">Indulge in our selection of premium teas, carefully sourced and brewed
-          for your enjoyment.</p>
-        <button onclick="location.href='http://127.0.0.1:8000/menu/'"
-          class=" bg-[#7e5e3d] text-white py-2 px-4 rounded-full hover:bg-[#b59472] transition-colors">details </button>
-      </div>
 
     </div>
   </main>
+
   {% endblock main %}
   {% block footer %}
 
@@ -133,20 +96,14 @@
       <!--cmment-->
       <div class="w-1/3 bg-[#6a4e36] p-4 rounded-lg shadow-lg" id="about">
         <h3 class="text-lg font-semibold text-[#f1e0b8] mb-3">We Value Your Feedback</h3>
-        <form action="#" method="POST">
-          <div class="flex flex-col mb-3">
-            <input type="text" name="name" placeholder="Your Name" class="p-2 border border-[#6c4a2f] rounded-lg mb-3"
-              required>
-            <input type="email" name="email" placeholder="Your Email"
-              class="p-2 border border-[#6c4a2f] rounded-lg mb-3" required>
-            <textarea name="message" placeholder="Your Message" rows="3"
-              class="p-2 border border-[#6c4a2f] rounded-lg mb-3" required></textarea>
-          </div>
-          <button type="submit"
-            class="bg-[#7e5e3d] text-white py-1 px-3 rounded-full hover:bg-[#5c3e2e] transition-colors">Submit</button>
+        <form action="">
+          {% csrf_token %}
+          {{ form.as_p }}
         </form>
       </div>
     </div>
+
+
 
     <p class="text-xs text-[#d7b79a] mt-3">123 Coffee Street, Tehran, Iran</p>
     <p class="text-xs text-[#d7b79a]">© 2025 Tawind Café. All rights reserved.</p>

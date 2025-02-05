@@ -1,25 +1,22 @@
 from django.shortcuts import render
 
-# Create your views here.
 def show_home(request):
     return render(request,'home_reza_sample.html')
 def show_menu(request):
     return render(request,'menu.html')
 
-def show_order(request):
-    return render(request,'order.html')
+def show_home(request):
+    data_category=Category.objects.all()
+    contaxe={
 
+        'cate_show':data_category
 
-# from django.shortcuts import render, redirect
-# from .forms import PollForm
+            }
+    return render(request,'base.html',contaxe)
 
-
-# def home_poll(request):
-#     if request.method == 'POST':
-#         form = PollForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('home') #replace it after termin with fardin
-#     else:
-#         form = PollForm()
-#     return render(request, '',{'form'.form})     
+def create_poll(request):
+    forms=PollCreateForm()
+    contaxe={
+        'form':forms
+    }
+    return render(request,'f.html',contaxe)
