@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from menu_items.models import Category
+
 
 # Create your views here.
 
