@@ -1,6 +1,7 @@
-from django.contrib import admin
 from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('order/', ),
+    path('receipt/', views.receipt_view, name='receipt_view'),
+    path('/',views.home , name='home')
 ]
