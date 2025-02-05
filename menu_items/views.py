@@ -151,6 +151,10 @@ from .models import MenuItem
 from orders.models import Order, OrderDetail
 from tables.models import Table
 from django.urls import reverse
+
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def complete_order(request):
 
     cart_data = request.COOKIES.get("cart")  # دریافت سبد خرید از کوکی‌ها

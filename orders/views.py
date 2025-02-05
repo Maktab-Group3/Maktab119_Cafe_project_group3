@@ -1,7 +1,7 @@
 from django.shortcuts import render , get_object_or_404
 # from django.http import HttpResponse
 # from .models import Receipt
-from .models import Order
+from .models import Order, OrderDetail
 # Create your views here.
 
 
@@ -14,13 +14,8 @@ def get_all_receipts(request):
 
 
 
-# def get_all_orders(request,order_id):
 
-#     order = get_object_or_404(Order, id=order_id)
-#     print("*"*20)
-#     print(order.id)
-#     return render(request,"orders.html",{'Order':order})
-
-def get_all_orders(request):
-    orders = Order.objects.prefetch_related("menu_items", "tables")
-    return render(request, "all_orders.html",{'Orders':orders})
+def orders(request):
+    orders = Order.objects.all()
+    # order_items = OrderDetail.objects.all()
+    return render(request, 'orders.html', {'orders':orders})
