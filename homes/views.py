@@ -1,25 +1,20 @@
 from django.shortcuts import render
+from menu_items.models import Category
 
 # Create your views here.
+
 def show_home(request):
-    return render(request,'base.html')
-def show_menu(request):
-    return render(request,'menu.html')
+    data_category=Category.objects.all()
+    contaxe={
 
-def show_order(request):
-    return render(request,'order.html')
+        'cate_show':data_category
 
+            }
+    return render(request,'base.html',contaxe)
 
-# from django.shortcuts import render, redirect
-# from .forms import PollForm
-
-
-# def home_poll(request):
-#     if request.method == 'POST':
-#         form = PollForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('home') #replace it after termin with fardin
-#     else:
-#         form = PollForm()
-#     return render(request, '',{'form'.form})     
+def create_poll(request):
+    forms=PollCreateForm()
+    contaxe={
+        'form':forms
+    }
+    return render(request,'f.html',contaxe)
