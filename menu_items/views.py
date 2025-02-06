@@ -154,94 +154,49 @@ from django.urls import reverse
 
 from django.contrib.auth.decorators import login_required
 
-@login_required
+@login_required(login_url='/login/')  
 def complete_order(request):
-
-    cart_data = request.COOKIES.get("cart")  # دریافت سبد خرید از کوکی‌ها
-
-
+    cart_data = request.COOKIES.get("cart")  
 
     if not cart_data:
-
         return render(request, "order.html", {"error": "Your cart is empty!"})
 
-
-
     try:
-
-        cart_items = json.loads(cart_data)  # تبدیل JSON به دیکشنری پایتون
-
+        cart_items = json.loads(cart_data)  
     except json.JSONDecodeError:
-
         return render(request, "order.html", {"error": "Invalid cart format!"})
 
-
-
     if not cart_items:
-
         return render(request, "order.html", {"error": "No items selected!"})
 
-
-
     # مقدار پیش‌فرض برای میز
-
     default_table = Table.objects.first()
 
-
-
     # ایجاد سفارش جدید
-
     order = Order.objects.create(table=default_table)
 
-
-
     total_price = 0
-
     for menu_id, item in cart_items.items():
-
         try:
-
-            menu_item = MenuItem.objects.get(id=int(menu_id))  # دریافت غذا از دیتابیس
-
-            quantity = int(item["quantity"])  # تعداد را دریافت کن
-
-
-
+            menu_item = MenuItem.objects.get(id=int(menu_id)) 
+            quantity = int(item["quantity"])  
             # ذخیره در OrderDetail
-
             OrderDetail.objects.create(
-
                 order=order,
-
-                item_name=menu_item.name,  # ذخیره فقط نام غذا
-
-                item_price=menu_item.price,  # ذخیره قیمت غذا
-
+                item_name=menu_item.name,  
+                item_price=menu_item.price,  
                 quantity=quantity
-
             )
 
-
-
-            total_price += menu_item.price * quantity  # محاسبه قیمت کل
-
+            total_price += menu_item.price * quantity  
         except (MenuItem.DoesNotExist, ValueError, KeyError):
-
-            continue  # اگر آیتمی وجود نداشت، آن را نادیده بگیر
-
-
+            continue  
 
     order.total_price = total_price
+    order.save() 
 
-    order.save()  # ذخیره سفارش نهایی
-
-
-
-    response = redirect(reverse("order_detail", args=[order.id]))  # هدایت به صفحه جزئیات سفارش
-
-    response.delete_cookie("cart")  # حذف کوکی سبد خرید پس از ثبت سفارش
-
-
+    response = redirect(reverse("order_detail", args=[order.id]))  
+    response.delete_cookie("cart")  
 
     return response
 # def order_detail(request, order_id):
