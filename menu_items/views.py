@@ -169,10 +169,10 @@ def complete_order(request):
     if not cart_items:
         return render(request, "order.html", {"error": "No items selected!"})
 
-    # مقدار پیش‌فرض برای میز
+    
     default_table = Table.objects.first()
 
-    # ایجاد سفارش جدید
+ 
     order = Order.objects.create(table=default_table)
 
     total_price = 0
@@ -180,7 +180,7 @@ def complete_order(request):
         try:
             menu_item = MenuItem.objects.get(id=int(menu_id)) 
             quantity = int(item["quantity"])  
-            # ذخیره در OrderDetail
+            
             OrderDetail.objects.create(
                 order=order,
                 item_name=menu_item.name,  
@@ -191,7 +191,7 @@ def complete_order(request):
             total_price += menu_item.price * quantity  
         except (MenuItem.DoesNotExist, ValueError, KeyError):
             continue  
-
+       
     order.total_price = total_price
     order.save() 
 

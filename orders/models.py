@@ -64,3 +64,12 @@ class OrderDetail(models.Model):
 #     def __str__(self):
 #         return f"{self.menu_item.name} X {self.quantity}"   
     
+class Receipt(TimeStampeMixin):
+    total_price = models.DecimalField(max_digits=10, decimal_places=5)
+    is_refunded = models.BooleanField(default=False)
+    order = models.CharField( max_length=50)
+    status_R = models.BooleanField( default=False)
+    
+    def __str__(self):
+        return f'{self.id}'
+   
