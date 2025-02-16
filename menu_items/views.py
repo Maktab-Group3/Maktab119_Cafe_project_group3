@@ -68,8 +68,11 @@ def add_to_cart(request):
         cart = json.loads(request.COOKIES.get('cart', '{}'))
         
         if item_id in cart:
-            cart[item_id]['quantity'] += 1
-            cart[item_id]['price'] = cart[item_id]['quantity'] * item.price
+            if cart[item_id]['quantity'] < item.entity:
+                cart[item_id]['quantity'] += 1
+                cart[item_id]['price'] = cart[item_id]['quantity'] * item.price
+            else :
+                return render(request, 'menu_reza.html', {'error': 'not enough stock'})    
         else:
             cart[item_id] = {
                 'name': item.name,
@@ -271,7 +274,10 @@ def complete_order(request):
             continue
         try:
             menu_item = MenuItem.objects.get(id=int(menu_id)) 
-            quantity = int(item["quantity"])  
+            quantity = int(item["quantity"])
+
+            if menu_item.entity < quantity :
+                return render(request, "order.html", {"error": f"not enough stock or entity of : {menu_item.name}"})  
             
             OrderDetail.objects.create(
                 order=order,
