@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>All Orders</h2>
+        <h2>All Orders of {{ request.user.username }}</h2>
 
         <!-- Loop through each order -->
         {% for order in orders %}
@@ -36,7 +36,7 @@
                     <th>Total Price</th>
                 </tr>
                 <!-- Loop through order items for the current order -->
-                {% for item in order.orderdetail_set.all %}
+                {% for item in order.details.all %}
                 <tr>
                     <td>{{ item.item_name }}</td>
                     <td>{{ item.quantity }}</td>

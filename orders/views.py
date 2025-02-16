@@ -16,10 +16,11 @@ def get_all_receipts(request):
     return render(request,"test.html",receipts_dict)
 
 
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def orders(request):
-    orders = Order.objects.all()
+    orders = Order.objects.filter(user=request.user).prefetch_related('details')
     # order_items = OrderDetail.objects.all()
     return render(request, 'orders.html', {'orders':orders})
 

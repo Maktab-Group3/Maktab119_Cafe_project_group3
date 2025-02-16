@@ -2,6 +2,8 @@ from django.db import models
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
 from datetime import timedelta
+from django.contrib.auth.models import User
+
 # from ordrs.models import Order
 # Create your models here.
 
@@ -65,13 +67,11 @@ class MenuItem(models.Model):
     def __str__(self):
         return f'{self.name, self.price, self.description}'
 
-#this codes blonges to reza, there are for shopping cart 
+class Comment(models.Model):
+    text = models.TextField()
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE , related_name="comments")
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
-#class CartItem(models.Model):
-#    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-#    quantity = models.PositiveIntegerField(default=1)
-#    user = models.ForeignKey(User, on_delete=models.CASCADE)
-#    date_added = models.DateTimeField(auto_now_add=True)
-
-#    def __str__(self):
-#        return f"{self.menu_item.name} X {self.quantity}" 
+    def __str__(self):
+        return f"Comment from {self.user.username}: for {self.menu_item.name}"

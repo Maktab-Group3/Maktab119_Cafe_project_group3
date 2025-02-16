@@ -35,11 +35,3 @@ alpha_validator =RegexValidator(
 #         return f"{self.first_name}  {self.last_name} "
 
 
-class Comment(TimeStampeMixin):
-    text = models.TextField()
-    date_comment = models.DateTimeField(auto_now_add=True)
-#    user = models.ForeignKey(User,on_delete=models.CASCADE , name="user")
-    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE , name="menu_item")
-
-    def __str__(self):
-        return f'Comment from {self.user.last_name}: for {self.menu_item.name} {self.text}'
