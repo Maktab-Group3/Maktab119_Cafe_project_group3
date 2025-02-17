@@ -72,7 +72,7 @@ def add_to_cart(request):
                 cart[item_id]['quantity'] += 1
                 cart[item_id]['price'] = cart[item_id]['quantity'] * item.price
             else :
-                return render(request, 'menu_reza.html', {'error': 'not enough stock'})    
+                return render(request, 'menu_reza.html', {"error": f"not enough stock"})    
         else:
             cart[item_id] = {
                 'name': item.name,
@@ -279,6 +279,8 @@ def complete_order(request):
             if menu_item.entity < quantity :
                 return render(request, "order.html", {"error": f"not enough stock or entity of : {menu_item.name}"})  
             
+            menu_item.entity -= quantity
+            menu_item.save()
             OrderDetail.objects.create(
                 order=order,
                 item_name=menu_item.name,  

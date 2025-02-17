@@ -1,4 +1,5 @@
 from django.db import models
+
 from tables.models import Table
 # from tables.models import Table
 

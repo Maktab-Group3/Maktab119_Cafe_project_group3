@@ -1,143 +1,302 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Coffee Shop - Home</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background: url("{% static 'img/cf1.png' %}") no-repeat center center/cover;
+            background-size: cover;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f5f0;
+            color: #333;
+        }
+
+        /* Header */
+        .navbar {
+            background-color: #6f4e37;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            color: #fff !important;
+        }
+
+        .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            color: rgb(129, 129, 129);
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);    
+        }
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .btn-custom {
+            background-color: #d4a373;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .category-filter .nav-link {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .category-filter .nav-link:hover {
+            background-color: #d4a373;
+        }
+
+        /* Menu Section */
+        .menu-item-card img {
+            border-radius: 8px;
+            object-fit: cover;
+            height: 200px; /* تغییر اندازه */
+        }
+
+        .menu-item-card {
+            transition: transform 0.3s ease;
+            height: 300px; /* تغییر اندازه کارت‌ها */
+        }
+
+        .menu-item-card:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #6f4e37;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-map iframe {
+            width: 100%;
+            height: 250px;
+            border: 0;
+        }
+
+        /* Coffee Knowledge Section */
+        .coffee-knowledge .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .coffee-knowledge .card-body {
+            padding: 20px;
+        }
+
+        .coffee-knowledge .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Adjustments for item cards */
+        .menu-item-card {
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .menu-item-card .card-body {
+            padding: 15px;
+        }
+
+        .menu-item-card .btn-show-more {
+            background-color: #d4a373;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+        }
+        h2.text-center.mb-4 {
+            color: #c9c9c9;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            .menu-item-card {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333;">
-    <header style="background-color: #6f4e37; color: white; padding: 1rem; text-align: center;">
-        <h1>Welcome to Our Coffee Shop</h1>
-        <nav>
-            <ul style="list-style: none; padding: 0;">
-                <li style="display: inline; margin: 0 10px;">
-                    <a href="http://127.0.0.1:8000/menu/" style="color: white; text-decoration: none;">Menu</a>
-                </li>
-                <li style="display: inline; margin: 0 10px;">
-                    {% comment %} <a href="http://127.0.0.1:8000/logout/" style="color: white; text-decoration: none;">Logout</a> {% endcomment %}
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'logout' %}">Logout</a>
-                    {% else %} 
-                        <li style="display: inline; margin: 0 10px;">    
-                            <a href="http://127.0.0.1:8000/signup/" style="color: white; text-decoration: none;">SignUp</a>
-                        </li>    
-                        <a href="http://127.0.0.1:8000/login/" style="color: white; text-decoration: none;">Login</a>
-                    {% endif %} 
+<body>
 
-                </li>
-                <li style="display: inline; margin: 0 10px;">
-                    <a href="http://127.0.0.1:8000/orders/" style="color: white; text-decoration: none;">Orders</a>
-                </li>
-                <li style="display: inline; margin: 0 10px;">
-                    <a href="http://127.0.0.1:8000/admin/" style="color: white; text-decoration: none;">Admin</a>
-                </li>
-         
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">Coffee Shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'menu' %}">Menu</a></li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'orders' %}">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
             </ul>
-        </nav>
-    </header>
-
-    <main style="padding: 2rem;">
-        <section style="text-align: center; padding: 2rem; background-color: #d4a373; color: white; border-radius: 10px;">
-            <h2>Discover the Best Coffee in Town</h2>
-            <p>Enjoy our handcrafted coffee blends made with love and care.</p>
-            <a href="http://127.0.0.1:8000/menu/" style="background-color: #6f4e37; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 5px;">View Menu</a>
-        </section>
-
-        <section style="display: flex; justify-content: space-around; margin-top: 2rem;">
-            <div style="text-align: center; width: 30%; padding: 1rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-                <h3>Fresh Beans</h3>
-                <p>We use only the freshest coffee beans for our brews.</p>
-            </div>
-            <div style="text-align: center; width: 30%; padding: 1rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-                <h3>Cozy Ambiance</h3>
-                <p>Relax in our cozy and welcoming environment.</p>
-            </div>
-            <div style="text-align: center; width: 30%; padding: 1rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-                <h3>Fast Service</h3>
-                <p>Get your coffee quickly without compromising quality.</p>
-            </div>
-        </section>
-
-        <section style="max-width: 400px; margin: 2rem auto; padding: 2rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-            <h2>Visitor Poll</h2>
-            <p>What's your favorite coffee?</p>
-            <form>
-                <label style="display: block; margin-bottom: 0.5rem;">
-                    <input type="radio" name="coffee" value="latte"> Latte
-                </label>
-                <label style="display: block; margin-bottom: 0.5rem;">
-                    <input type="radio" name="coffee" value="cappuccino"> Cappuccino
-                </label>
-                <label style="display: block; margin-bottom: 0.5rem;">
-                    <input type="radio" name="coffee" value="espresso"> Espresso
-                </label>
-                <label style="display: block; margin-bottom: 1rem;">
-                    <input type="radio" name="coffee" value="americano"> Americano
-                </label>
-                <button type="submit" style="background-color: #6f4e37; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
-            </form>
-        </section>
-
-        <section style="margin-top: 2rem; padding: 2rem; background-color: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-            <h2>Our Coffee Shop</h2>
-            <p>Add an image of our shop here:</p>
-            <div style="max-width: 600px; margin: 0 auto;">
-                <img src="placeholder.jpg" alt="Coffee Shop Image" style="width: 100%; height: auto; border-radius: 5px;">
-            </div>
-        </section>
-        <!-- home.html -->
-<div class="container py-4">
-    <!-- Category Filter -->
-    <div class="category-filter text-center">
-        <form method="GET" action="{% url 'home' %}" class="d-inline">
-            <select name="category" class="form-select">
-                <option value="">All Categories</option>
-                {% for category in categories %}
-                    <option value="{{ category.id }}" {% if category.id|stringformat:"s" == request.GET.category %}selected{% endif %}>
-                        {{ category.name }}
-                    </option>
-                {% endfor %}
-            </select>
-            <button type="submit" class="btn btn-primary btn-filter">Filter</button>
-        </form>
+        </div>
     </div>
+</nav>
 
-    <!-- Menu Items -->
-    <div class="row">
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1>Discover the Best Coffee in Town</h1>
+        <p>Enjoy handcrafted coffee blends made with love and care.</p>
+        <a href="{% url 'menu' %}" class="btn btn-custom">View Menu</a>
+    </div>
+</section>
+
+<!-- Category Filter (Horizontal) -->
+<div class="category-filter">
+    <ul class="nav">
+        <li class="nav-item">
+            <a href="#" class="nav-link" id="all-items">All</a>
+        </li>
+        {% for category in categories %}
+            <li class="nav-item">
+                <a href="?category={{ category.id }}" class="nav-link">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- Menu Section -->
+<div class="container py-5">
+    <h2 class="text-center mb-4">Our Menu</h2>
+    <div class="row" id="menu-items">
         {% for item in menu_items %}
-        <div class="col-md-4 mb-4">
-            <div class="card menu-card h-100">
-                <div class="card-body">
-                    <h3 class="card-title">{{ item.name }}</h3>
-                    <p class="card-text text-muted">Price: ${{ item.price }}</p>
-                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="img-fluid rounded" style="width: 200px ; height: 300px;">
-                    <p class="card-text mt-2">{{ item.description }}</p>
-                    <a href="{% url 'menu_item_detail' item.id %}">show more</a>
+            <div class="col-md-4">
+                <div class="card menu-item-card shadow-sm">
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="text-muted">Price: ${{ item.price }}</p>
+                        <a href="{% url 'menu_item_detail' item.id %}" class="btn-show-more">Show More</a>
+                    </div>
                 </div>
             </div>
-        </div>
         {% empty %}
-        <div class="col-12 text-center">
-            <p>No menu items found.</p>
-        </div>
+            <div class="col-12 text-center">
+                <p>No menu items found.</p>
+            </div>
         {% endfor %}
     </div>
 </div>
-    </main>
 
-    <footer style="background-color: #6f4e37; color: white; text-align: center; padding: 1rem; bottom: 0; width: 100%;">
-        <div style="width: 100%; margin-bottom: 1rem;">
-            <h2>Find Us</h2>
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509374!2d144.9537353153166!3d-37.816279742021665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d6eef5e641f0!2sCoffee%20Shop!5e0!3m2!1sen!2sus"
-                width="100%"
-                height="200"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy">
-            </iframe>
+<!-- Coffee Knowledge Section -->
+<section class="coffee-knowledge py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Coffee Knowledge</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% static 'img/unnamed (4).jpg' %}" alt="Coffee Origins">
+                    <div class="card-body">
+                        <h5 class="card-title">Coffee Origins</h5>
+                        <p>Learn about where our beans come from and the unique flavors they bring.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% static 'img/brewmethods.jpg' %}" alt="Brewing Methods">
+                    <div class="card-body">
+                        <h5 class="card-title">Brewing Methods</h5>
+                        <p>Explore different ways to brew your coffee and enhance its flavors.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{% static 'img/bigstock-Coffee-Cup-Cup-Of-Coffee-1375146.jpg' %}" alt="Coffee Benefits">
+                    <div class="card-body">
+                        <h5 class="card-title">Coffee Benefits</h5>
+                        <p>Discover the health benefits of coffee and how it can boost your energy.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p>&copy; 2023 Coffee Shop. All rights reserved.</p>
-    </footer>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 Coffee Shop. All rights reserved.</p>
+    <!-- Map -->
+    <div class="footer-map mt-4">
+        <h5>Find Us</h5>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434509374!2d144.9537353153166!3d-37.816279742021665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d6eef5e641f0!2sCoffee%20Shop!5e0!3m2!1sen!2sus!4v1674398653345" allowfullscreen=""></iframe>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS for "All" filter -->
+<script>
+    document.getElementById('all-items').addEventListener('click', function(e) {
+        e.preventDefault();
+        // Here, we simply reload the page with all items visible
+        document.location.reload();
+    });
+</script>
+
 </body>
 </html>
