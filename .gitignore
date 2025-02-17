@@ -171,3 +171,5 @@ cython_debug/
 .pypirc
 newenv/
 node_modules/
+static/
+templates/
