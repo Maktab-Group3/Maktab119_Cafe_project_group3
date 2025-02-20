@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .menu-item {
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <a href="{% url 'menu' %}">All</a>
+        {% for category in categories %}
+            <a href="{% url 'menu' %}?category={{ category.id }}">{{ category.name }}</a>
+        {% endfor %}
+    </nav>
+
+    <!-- Menu Items -->
+    <div>
+        {% for item in menu_items %}
+            <div class="menu-item">
+                <h2>{{ item.name }}</h2>
+                <p>{{ item.description }}</p>
+                <p>Price: ${{ item.price }}</p>
+                <label for="quantity_{{ item.name }}">Quantity:</label>  
+                <input type="number" id="quantity_{{ item.name }}" name="quantity" value="1" min="1" max="100"> 
+                <button onclick="setItemInCart('{{ item.name }}', document.getElementById('quantity_{{ item.name }}').value)">Add to Cart</button>
+            </div>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>

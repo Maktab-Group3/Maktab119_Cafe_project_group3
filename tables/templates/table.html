@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table List</title>
+</head>
+<body>
+    <h1>Café Tables</h1>
+    <table>
+        <tr>
+            <th>Table Number</th>
+            <th>Café Space Position</th>
+        </tr>
+        {% for table in tables %}
+        <tr>
+            <td>{{ table.table_number }}</td>
+            <td>{{ table.cafe_space_position }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
