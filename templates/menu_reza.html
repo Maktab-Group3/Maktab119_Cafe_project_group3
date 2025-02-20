@@ -142,7 +142,16 @@
                 </div>
                 <div class="card-body">
                   <h3 class="card-title">{{ item.name }}</h3>
-                  <p class="card-text text-muted">Price: ${{ item.price }}</p>
+                    {% if item.discount_percentage > 0 %}
+                        <p class="card-text text-muted">
+                            Price: <del style="color: #e74c3c;">${{ item.price }}</del> 
+                        </p>    
+                        <span style="color: #27ae60;"> ${{ item.discounted_price }}</span>
+                        
+                    {% else %}
+                        ${{ item.price }}
+                    {% endif %}
+                        
                   {% if item.entity > 0 %}
                   <form action="{% url 'add_to_cart' %}" method="POST">
                     {% csrf_token %}

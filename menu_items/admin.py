@@ -5,13 +5,17 @@ class AdminMenuItem(admin.ModelAdmin):
     list_display = [
         'name',
         'price',
-        'discount',
+        'discount_percentage',
         'description',
         'serving_time_start',
         'serving_time_start',
         'estimated_cooking_time',
         'entity',
-        'category'
+        'category',
+        'discounted_price',
+        'discount_stock',
+
+
     ]
     
     

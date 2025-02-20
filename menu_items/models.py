@@ -24,13 +24,9 @@ class MenuItem(models.Model):
     price = models.BigIntegerField(
         help_text="Price of the item in decimal format.")
     
-    discount = models.DecimalField(
-        max_digits=4,
-        decimal_places=2,
-        blank=True,
-        null=True,
-        help_text="Discount as a decimal value (e.g., 0.15 for 15%).")
-    
+    discount_percentage = models.IntegerField(choices=[(0,"0%"),(10,"10%"),(15,"15%"),(20,"20%")], default=0)
+    discounted_price = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
+    discount_stock = models.IntegerField(default=0)
     description = models.TextField(
         blank=True,
         help_text="Detailed description of the menu item.")
@@ -63,7 +59,23 @@ class MenuItem(models.Model):
         end_delta = timedelta(hours=self.end_time.hour, minutes=self.end_time.minute, seconds=self.end_time.second)
         duration = (end_delta - start_delta)
         return duration
-    
+      
+    def reduce_discount_stock(self):
+        if self.discount_stock > 0 :
+            self.discount_stock -= 1
+            if self.discount_stock == 0 :
+                self.discount_percentage = 0
+                self.apply_discount()
+            self.save()  
+
+    def save(self, *args, **kwargs):
+        if self.discount_percentage > 0 and int(self.discount_stock) > 0:
+            discount_amount = (self.price*self.discount_percentage)/100
+            self.discounted_price = self.price - discount_amount
+        else :
+            self.discounted_price = self.price
+
+        super().save(*args, **kwargs)          
     def __str__(self):
         return f'{self.name, self.price, self.description}'
 

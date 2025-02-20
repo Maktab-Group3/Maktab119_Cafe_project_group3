@@ -18,6 +18,7 @@ class Order(TimeStampeMixin):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     table = models.ForeignKey(Table, on_delete=models.CASCADE, name='table')
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    discounted_price = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     payment_status = models.CharField(
         choices=[('Successful', 'Successful'), ('Pending', 'Pending'), ('Cancelled', 'Cancelled')],
         default='Pending', max_length=10
@@ -42,7 +43,9 @@ class Order(TimeStampeMixin):
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="details")
     item_name = models.CharField(max_length=255)  
+    item_origin_price = models.DecimalField(max_digits=10, decimal_places=2)
     item_price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     quantity = models.IntegerField()
     def total_item_price(self):
 
@@ -54,10 +57,13 @@ class OrderDetail(models.Model):
 
     
 class Receipt(TimeStampeMixin):
-    total_price = models.DecimalField(max_digits=10, decimal_places=5)
-    is_refunded = models.BooleanField(default=False)
-    order = models.CharField( max_length=50)
-    status_R = models.BooleanField( default=False)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    original_price = models.DecimalField(max_digits=10, decimal_places=2)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"Reciept for order {self.order.id} "
     
     def __str__(self):
         return f'{self.id}'
